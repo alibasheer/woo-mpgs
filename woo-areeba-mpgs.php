@@ -23,6 +23,21 @@ if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins',
 }
 
 /**
+ * Adds plugin page links
+ *
+ * @since 1.0.0
+ * @param array $links all plugin links
+ * @return array $links all plugin links + our custom link (i.e., "Configure")
+ */
+function wc_areeba_mpgs_gateway_plugin_links( $links ) {
+	$plugin_links = array(
+		'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=areeba_mpgs' ) . '">' . __( 'Configure', 'areeba-mpgs' ) . '</a>'
+	);
+	return array_merge( $plugin_links, $links );
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_areeba_mpgs_gateway_plugin_links' );
+
+/**
  * Add the gateway to WC Available Gateways
  *
  * @since 1.0.0
@@ -86,7 +101,7 @@ function wc_areeba_mpgs_init() {
 				'enabled' => array(
 					'title'   => __( 'Enable/Disable', 'areeba-mpgs' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable Areeba MIGS Payment Module.', 'areeba-mpgs' ),
+					'label'   => __( 'Enable Areeba MPGS Payment Module.', 'areeba-mpgs' ),
 					'default' => 'yes',
 				),
 				'title' => array(
