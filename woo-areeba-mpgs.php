@@ -63,6 +63,18 @@ function wc_areeba_mpgs_init() {
 			// Load the settings.
 			$this->init_form_fields();
 			$this->init_settings();
+
+			// Define user set variables
+			$this->title           = $this->get_option( 'title' );
+			$this->description     = $this->get_option( 'description' );
+			$this->merchant_id     = $this->get_option( 'merchant_id' );
+			$this->auth_pass       = $this->get_option( 'authentication_password' );
+			$this->service_host    = $this->get_option( 'service_host' );
+			$this->success_message = $this->get_option( 'thank_you_msg' );
+			$this->failed_message  = $this->get_option( 'transaction_failed_msg' );
+
+			// Actions
+			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		}
 
 		/**
@@ -88,7 +100,7 @@ function wc_areeba_mpgs_init() {
 					'title'       => __( 'Description', 'areeba-mpgs' ),
 					'type'        => 'textarea',
 					'description' => __( 'Payment method description that the customer will see on your checkout.', 'areeba-mpgs' ),
-					'default'     => __( 'Pay securely by Credit Card/Debit Card.', 'areeba-mpgs' ),
+					'default'     => __( 'Pay securely by Credit/Debit Card.', 'areeba-mpgs' ),
 					'desc_tip'    => true
 				),
 				'merchant_id' => array(
@@ -129,7 +141,7 @@ function wc_areeba_mpgs_init() {
 					'default'     => __( 'Thank you for shopping with us. Your account has been charged and your transaction is successful. We will be shipping your order to you soon.', 'areeba-mpgs' ),
 					'desc_tip'    => true
 				),
-				'transaction_failed_Msg' => array(
+				'transaction_failed_msg' => array(
 					'title'       => __( 'Transaction Failed Message', 'areeba-mpgs' ),
 					'type'        => 'textarea',
 					'description' => __( 'Put whatever message you want to display after a transaction failed.', 'areeba-mpgs' ),
@@ -138,8 +150,21 @@ function wc_areeba_mpgs_init() {
 					'desc_tip'    => true
 				)
 			) );
+		}
 
+		/**
+		 * Process the payment and return the result
+		 *
+		 * @param int $order_id
+		 * @return array
+		 */
+		public function process_payment( $order_id ) {
+			$order = wc_get_order( $order_id );
+			return array(
+				'result'   => 'success',
+				'redirect' => $order->get_checkout_payment_url( true )
+			);
 		}
 	}
 }
-add_action( 'plugins_loaded', 'wc_areeba_mpgs_init', 11 );
+add_action( 'plugins_loaded', 'wc_areeba_mpgs_init' );
