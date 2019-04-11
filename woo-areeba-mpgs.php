@@ -49,6 +49,97 @@ add_filter( 'woocommerce_payment_gateways', 'wc_areeba_mpgs_add_to_gateways' );
 function wc_areeba_mpgs_init() {
 	class WC_Areeba_MPGS extends WC_Payment_Gateway {
 
+		/**
+		 * Constructor for the gateway.
+		 */
+		public function __construct() {
+
+			$this->id                 = 'areeba_mpgs';
+			$this->icon               = apply_filters( 'wc_areeba_mpgs_icon', plugins_url( 'images/mastercard.png' , __FILE__ ) );
+			$this->has_fields         = false;
+			$this->method_title       = __( 'Areeba MPGS', 'areeba-mpgs' );
+			$this->method_description = __( 'Allows Areeba MasterCard Payment Gateway Services (MPGS)', 'areeba-mpgs' );
+
+			// Load the settings.
+			$this->init_form_fields();
+			$this->init_settings();
+		}
+
+		/**
+		 * Initialize Gateway Settings Form Fields
+		 */
+		public function init_form_fields() {
+
+			$this->form_fields = apply_filters( 'wc_areeba_mpgs_form_fields', array(
+				'enabled' => array(
+					'title'   => __( 'Enable/Disable', 'areeba-mpgs' ),
+					'type'    => 'checkbox',
+					'label'   => __( 'Enable Areeba MIGS Payment Module.', 'areeba-mpgs' ),
+					'default' => 'yes',
+				),
+				'title' => array(
+					'title'       => __( 'Title', 'areeba-mpgs' ),
+					'type'        => 'text',
+					'description' => __( 'This controls the title for the payment method the customer sees during checkout.', 'areeba-mpgs' ),
+					'default'     => __( 'Credit Card', 'areeba-mpgs' ),
+					'desc_tip'    => true
+				),
+				'description' => array(
+					'title'       => __( 'Description', 'areeba-mpgs' ),
+					'type'        => 'textarea',
+					'description' => __( 'Payment method description that the customer will see on your checkout.', 'areeba-mpgs' ),
+					'default'     => __( 'Pay securely by Credit Card/Debit Card.', 'areeba-mpgs' ),
+					'desc_tip'    => true
+				),
+				'merchant_id' => array(
+					'title'       => __( 'Merchant ID', 'areeba-mpgs' ),
+					'type'        => 'text',
+					'description' => __( 'Merchant ID, given by Areeba', 'areeba-mpgs' ),
+					'placeholder' => __( 'Merchant ID', 'woocommerce' ),
+					'desc_tip'    => true
+				),
+				'authentication_password' => array(
+					'title'       => __( 'Authentication Password', 'areeba-mpgs' ),
+					'type'        => 'text',
+					'description' => __( 'Authentication Password, given by Areeba', 'areeba-mpgs' ),
+					'placeholder' => __( 'Authentication Password', 'areeba-mpgs' ),
+					'desc_tip'    => true
+				),
+				'service_host' => array(
+					'title'       => __( 'MPGS Checkout URL', 'areeba-mpgs' ),
+					'type'        => 'text',
+					'css'         => 'width:100%',
+					'description' => __( 'MPGS Checkout URL, given by Areeba', 'areeba-mpgs' ),
+					'placeholder' => __( 'MPGS Checkout URL', 'areeba-mpgs' ),
+					'default'     => __( 'https://ap-gateway.mastercard.com/checkout/version/48/checkout.js', 'areeba-mpgs' ),
+					'desc_tip'    => true
+				),
+				'mpgs_order_status' => array(
+					'title'       => __( 'Order Status', 'gate_mpgs' ),
+					'type'        => 'select',
+					'description' => __( 'Set order status wen payment success.', 'areeba-mpgs' ),
+					'options'     => array( '1' => 'Processing', '2' => 'Completed' ),
+					'default'     => '1',
+				),
+				'thank_you_msg' => array(
+					'title'       => __( 'Transaction Success Message', 'areeba-mpgs' ),
+					'type'        => 'textarea',
+					'description' => __( 'Put the message you want to display after a successfull transaction.', 'areeba-mpgs' ),
+					'placeholder' => __( 'Transaction Success Message', 'areeba-mpgs' ),
+					'default'     => __( 'Thank you for shopping with us. Your account has been charged and your transaction is successful. We will be shipping your order to you soon.', 'areeba-mpgs' ),
+					'desc_tip'    => true
+				),
+				'transaction_failed_Msg' => array(
+					'title'       => __( 'Transaction Failed Message', 'areeba-mpgs' ),
+					'type'        => 'textarea',
+					'description' => __( 'Put whatever message you want to display after a transaction failed.', 'areeba-mpgs' ),
+					'placeholder' => __( 'Transaction Failed Message', 'areeba-mpgs' ),
+					'default'     => __( 'Thank you for shopping with us. However, the transaction has been declined.', 'areeba-mpgs' ),
+					'desc_tip'    => true
+				)
+			) );
+
+		}
 	}
 }
 add_action( 'plugins_loaded', 'wc_areeba_mpgs_init', 11 );
