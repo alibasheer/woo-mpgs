@@ -133,12 +133,12 @@ function wc_areeba_mpgs_init() {
 					'desc_tip'    => true
 				),
 				'service_host' => array(
-					'title'       => __( 'MPGS Checkout URL', 'areeba-mpgs' ),
+					'title'       => __( 'MPGS URL', 'areeba-mpgs' ),
 					'type'        => 'text',
 					'css'         => 'width:100%',
-					'description' => __( 'MPGS Checkout URL, given by Areeba', 'areeba-mpgs' ),
-					'placeholder' => __( 'MPGS Checkout URL', 'areeba-mpgs' ),
-					'default'     => __( 'https://ap-gateway.mastercard.com/checkout/version/48/checkout.js', 'areeba-mpgs' ),
+					'description' => __( 'MPGS URL, given by Areeba. This is an example: https://ap-gateway.mastercard.com/', 'areeba-mpgs' ),
+					'placeholder' => __( 'MPGS URL', 'areeba-mpgs' ),
+					'default'     => __( 'https://ap-gateway.mastercard.com/', 'areeba-mpgs' ),
 					'desc_tip'    => true
 				),
 				'mpgs_order_status' => array(
@@ -175,6 +175,26 @@ function wc_areeba_mpgs_init() {
 		 */
 		public function process_payment( $order_id ) {
 			$order = wc_get_order( $order_id );
+
+			// Prepare session request
+			$session_request = array();
+			$session_request['apiOperation']      = "CREATE_CHECKOUT_SESSION";
+			$session_request['userId']            = $order->user_id;
+			$session_request['order']['id']       = $order_id;
+			$session_request['order']['amount']   = $order->order_total;
+			$session_request['order']['currency'] = get_woocommerce_currency();
+
+			$request_url = $this->service_host . "api/rest/version/49/merchant/" . $this->merchant_id . "/session";
+
+			$response_json = wp_remote_post( $request_url, array(
+				'body'    => json_encode ( $session_request ),
+				'headers' => array(
+					'Authorization' => 'Basic ' . base64_encode( "merchant." . $this->merchant_id . ":" . $this->auth_pass ),
+				),
+			) );
+
+			$response = json_decode( $response_json['body'], true );
+
 			return array(
 				'result'   => 'success',
 				'redirect' => $order->get_checkout_payment_url( true )
