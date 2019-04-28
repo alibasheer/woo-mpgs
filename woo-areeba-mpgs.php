@@ -186,6 +186,7 @@ function wc_areeba_mpgs_init() {
 
 			$request_url = $this->service_host . "api/rest/version/49/merchant/" . $this->merchant_id . "/session";
 
+			// Request the session
 			$response_json = wp_remote_post( $request_url, array(
 				'body'    => json_encode ( $session_request ),
 				'headers' => array(
@@ -195,10 +196,25 @@ function wc_areeba_mpgs_init() {
 
 			$response = json_decode( $response_json['body'], true );
 
-			return array(
-				'result'   => 'success',
-				'redirect' => $order->get_checkout_payment_url( true )
-			);
+			if( $response['result'] == 'SUCCESS' && ! empty( $response['successIndicator'] ) ) {
+
+				update_post_meta( $order_id,'areeba_mpgs_successIndicator', $response['successIndicator'] );
+				update_post_meta( $order_id,'areeba_mpgs_sessionVersion', $response['session']['version'] );
+
+				$pay_url = add_query_arg( array(
+					'sessionId' => $response['session']['id'],
+					'order'     => $order->get_id(),
+					'key'       => $order->order_key,
+				), wc_get_checkout_url() );
+
+				return array(
+					'result'   => 'success',
+					'redirect' => $pay_url
+				);
+
+			} else {
+				wc_add_notice( __( 'Payment error : ', 'areeba-mpgs' ) . $response['error']['explanation'], 'error' );
+			}
 		}
 	}
 }
