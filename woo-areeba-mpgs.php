@@ -352,7 +352,7 @@ function wc_areeba_mpgs_init() {
                 $transaction_receipt = $response['transaction'][0]['transaction']['receipt'];
 
                 if( ! empty( $transaction_id ) && ! empty( $transaction_receipt ) ) {
-	                $order->add_order_note( sprintf( __( 'MPGS Payment completed with Transaction ID: %s and Transaction Receipt: %s)', 'areeba-mpgs' ), $transaction_id, $transaction_receipt ) );
+	                $order->add_order_note( sprintf( __( 'MPGS Payment completed with Transaction ID: %s and Transaction Receipt: %s.', 'areeba-mpgs' ), $transaction_id, $transaction_receipt ) );
 	                $order->payment_complete( $transaction_id );
 
 	                wp_redirect( $this->get_return_url( $order ) );
