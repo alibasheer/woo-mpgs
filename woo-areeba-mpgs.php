@@ -172,13 +172,6 @@ function wc_areeba_mpgs_init() {
 					'options'     => array( 'lightbox' => 'Lightbox', 'paymentpage' => 'Payment Page' ),
 					'default'     => '1',
 				),
-				'mpgs_order_status' => array(
-					'title'       => __( 'Order Status', 'gate_mpgs' ),
-					'type'        => 'select',
-					'description' => __( 'Set order status wen payment success.', 'areeba-mpgs' ),
-					'options'     => array( 'processing' => 'Processing', 'completed' => 'Completed' ),
-					'default'     => 'processing',
-				),
 				'thank_you_msg' => array(
 					'title'       => __( 'Transaction Success Message', 'areeba-mpgs' ),
 					'type'        => 'textarea',
@@ -336,6 +329,43 @@ function wc_areeba_mpgs_init() {
 		 */
 		public function process_response () {
 
+			global $woocommerce;
+			$order_id = $_REQUEST['order_id'];
+			$order = wc_get_order( $order_id );
+			$resultIndicator = $_REQUEST['resultIndicator'];
+			$mpgs_successIndicator = get_post_meta( $order_id, "areeba_mpgs_successIndicator", true );
+
+			if( $resultIndicator == $mpgs_successIndicator ) {
+				$woocommerce->cart->empty_cart();
+
+				$request_url = $this->service_host . "api/rest/version/49/merchant/" . $this->merchant_id . "/order/" . $order_id;
+
+				// Request the order payment details
+				$response_json = wp_remote_get( $request_url, array(
+					'headers' => array(
+						'Authorization' => 'Basic ' . base64_encode( "merchant." . $this->merchant_id . ":" . $this->auth_pass ),
+					),
+				) );
+
+				$response = json_decode( $response_json['body'], true );
+                $transaction_id = $response['transaction'][0]['authorizationResponse']['transactionIdentifier'];
+                $transaction_receipt = $response['transaction'][0]['transaction']['receipt'];
+
+                if( ! empty( $transaction_id ) && ! empty( $transaction_receipt ) ) {
+	                $order->add_order_note( sprintf( __( 'MPGS Payment completed with Transaction ID: %s and Transaction Receipt: %s)', 'areeba-mpgs' ), $transaction_id, $transaction_receipt ) );
+	                $order->payment_complete( $transaction_id );
+
+	                wp_redirect( $this->get_return_url( $order ) );
+                } else {
+	                wc_add_notice( __('Payment error: Something went wrong.', 'areeba-mpgs'), 'error' );
+                }
+
+            } else {
+				wc_add_notice( __('Payment error: Invalid transaction.', 'areeba-mpgs'), 'error' );
+            }
+            // reaching this line means there is an error, redirect back to checkout page
+			wp_redirect( wc_get_checkout_url() );
+			exit;
         }
 
 		/**
