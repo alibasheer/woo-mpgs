@@ -356,6 +356,7 @@ function wc_areeba_mpgs_init() {
 	                $order->payment_complete( $transaction_id );
 
 	                wp_redirect( $this->get_return_url( $order ) );
+	                exit;
                 } else {
 	                wc_add_notice( __('Payment error: Something went wrong.', 'areeba-mpgs'), 'error' );
                 }
