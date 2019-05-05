@@ -70,7 +70,7 @@ function wc_areeba_mpgs_init() {
 		public function __construct() {
 
 			$this->id                 = 'areeba_mpgs';
-			$this->icon               = apply_filters( 'wc_areeba_mpgs_icon', plugins_url( 'images/mastercard.png' , __FILE__ ) );
+			$this->icon               = apply_filters( 'wc_areeba_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
 			$this->has_fields         = false;
 			$this->method_title       = __( 'Areeba MPGS', 'areeba-mpgs' );
 			$this->method_description = __( 'Allows Areeba MasterCard Payment Gateway Services (MPGS)', 'areeba-mpgs' );
