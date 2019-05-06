@@ -252,9 +252,7 @@ function wc_areeba_mpgs_init() {
 
 				$order = wc_get_order( $order_id );
 				?>
-				<p><?php echo __( 'Thank you for your order, please click the button below to proceed with your payment.', 'areeba-mpgs' ); ?></p>
-				<a class="button alt" id="mpgs_payment_button" onclick="<?php echo ( $this->checkout_interaction === 'paymentpage' ) ? 'Checkout.showPaymentPage();' : 'Checkout.showLightbox();'; ?>" ><?php echo __( 'Pay with ', 'areeba-mpgs' ) . $this->title; ?></a>
-				<a class="button cancel" href="<?php echo esc_url( wc_get_checkout_url() ); ?>"><?php echo __( 'Cancel order &amp; restore cart', 'areeba-mpgs' ); ?></a>
+				<p class="loading-payment-text"><?php echo __( 'Loading payment method, please wait. This may take up to 30 seconds.', 'areeba-mpgs' ); ?></p>
 				<script
 					src="<?php echo $this->service_host; ?>checkout/version/49/checkout.js"
 					data-error="errorCallback"
@@ -314,7 +312,7 @@ function wc_areeba_mpgs_init() {
                             }
                         }
                     });
-
+                    <?php echo ( $this->checkout_interaction === 'paymentpage' ) ? 'Checkout.showPaymentPage();' : 'Checkout.showLightbox();'; ?>
 				</script>
 				<?php
 			} else {
