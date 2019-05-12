@@ -89,8 +89,6 @@ function woo_mpgs_init() {
 			$this->merchant_address1    = $this->get_option( 'merchant_address1' );
 			$this->merchant_address2    = $this->get_option( 'merchant_address2' );
 			$this->checkout_interaction = $this->get_option( 'checkout_interaction' );
-			$this->success_message      = $this->get_option( 'thank_you_msg' );
-			$this->failed_message       = $this->get_option( 'transaction_failed_msg' );
 
 			// Actions
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -171,22 +169,6 @@ function woo_mpgs_init() {
 					'description' => __( 'Choose checkout interaction type', 'woo-mpgs' ),
 					'options'     => array( 'lightbox' => 'Lightbox', 'paymentpage' => 'Payment Page' ),
 					'default'     => '1',
-				),
-				'thank_you_msg' => array(
-					'title'       => __( 'Transaction Success Message', 'woo-mpgs' ),
-					'type'        => 'textarea',
-					'description' => __( 'Put the message you want to display after a successfull transaction.', 'woo-mpgs' ),
-					'placeholder' => __( 'Transaction Success Message', 'woo-mpgs' ),
-					'default'     => __( 'Thank you for shopping with us. Your account has been charged and your transaction is successful. We will be shipping your order to you soon.', 'woo-mpgs' ),
-					'desc_tip'    => true
-				),
-				'transaction_failed_msg' => array(
-					'title'       => __( 'Transaction Failed Message', 'woo-mpgs' ),
-					'type'        => 'textarea',
-					'description' => __( 'Put whatever message you want to display after a transaction failed.', 'woo-mpgs' ),
-					'placeholder' => __( 'Transaction Failed Message', 'woo-mpgs' ),
-					'default'     => __( 'Thank you for shopping with us. However, the transaction has been declined.', 'woo-mpgs' ),
-					'desc_tip'    => true
 				)
 			) );
 		}
