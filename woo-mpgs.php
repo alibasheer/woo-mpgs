@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WooCommerce Areeba MPGS
- * Description: Extends WooCommerce with Areeba MasterCard Payment Gateway Services (MPGS).
+ * Plugin Name: WooCommerce MPGS
+ * Description: Extends WooCommerce with MasterCard Payment Gateway Services (MPGS).
  * Version: 1.0.0
- * Text Domain: areeba-mpgs
+ * Text Domain: woo-mpgs
  * Domain Path: /languages
  * Author: Ali Basheer
  * Author URI: http://alibasheer.com
@@ -29,51 +29,51 @@ if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins',
  * @param array $links all plugin links
  * @return array $links all plugin links + our custom link (i.e., "Configure")
  */
-function wc_areeba_mpgs_gateway_plugin_links( $links ) {
+function woo_mpgs_gateway_plugin_links( $links ) {
 	$plugin_links = array(
-		'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=areeba_mpgs' ) . '">' . __( 'Configure', 'areeba-mpgs' ) . '</a>'
+		'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=woo_mpgs' ) . '">' . __( 'Configure', 'woo-mpgs' ) . '</a>'
 	);
 	return array_merge( $plugin_links, $links );
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_areeba_mpgs_gateway_plugin_links' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'woo_mpgs_gateway_plugin_links' );
 
 /**
  * Add the gateway to WC Available Gateways
  *
  * @since 1.0.0
  * @param array $gateways all available WC gateways
- * @return array $gateways all WC gateways + Areeba MPGS gateway
+ * @return array $gateways all WC gateways + Woo MPGS gateway
  */
-function wc_areeba_mpgs_add_to_gateways( $gateways ) {
-	$gateways[] = 'WC_Areeba_MPGS';
+function woo_mpgs_add_to_gateways( $gateways ) {
+	$gateways[] = 'WOO_MPGS';
 	return $gateways;
 }
-add_filter( 'woocommerce_payment_gateways', 'wc_areeba_mpgs_add_to_gateways' );
+add_filter( 'woocommerce_payment_gateways', 'woo_mpgs_add_to_gateways' );
 
 /**
- * WooCommerce Areeba MPGS
+ * WooCommerce MPGS
  *
- * Extends WooCommerce with Areeba MasterCard Payment Gateway Services (MPGS).
+ * Extends WooCommerce with MasterCard Payment Gateway Services (MPGS).
  *
- * @class 		WC_Areeba_MPGS
+ * @class 		WOO_MPGS
  * @extends		WC_Payment_Gateway
  * @version		1.0.0
  * @package		WooCommerce/Classes/Payment
  * @author 		Ali Basheer
  */
-function wc_areeba_mpgs_init() {
-	class WC_Areeba_MPGS extends WC_Payment_Gateway {
+function woo_mpgs_init() {
+	class WOO_MPGS extends WC_Payment_Gateway {
 
 		/**
 		 * Constructor for the gateway.
 		 */
 		public function __construct() {
 
-			$this->id                 = 'areeba_mpgs';
-			$this->icon               = apply_filters( 'wc_areeba_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
+			$this->id                 = 'woo_mpgs';
+			$this->icon               = apply_filters( 'woo_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
 			$this->has_fields         = false;
-			$this->method_title       = __( 'Areeba MPGS', 'areeba-mpgs' );
-			$this->method_description = __( 'Allows Areeba MasterCard Payment Gateway Services (MPGS)', 'areeba-mpgs' );
+			$this->method_title       = __( 'MPGS', 'woo-mpgs' );
+			$this->method_description = __( 'Allows MasterCard Payment Gateway Services (MPGS)', 'woo-mpgs' );
 
 			// Load the settings.
 			$this->init_form_fields();
@@ -94,8 +94,8 @@ function wc_areeba_mpgs_init() {
 
 			// Actions
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-			add_action( 'woocommerce_receipt_areeba_mpgs', array( $this, 'receipt_page' ) );
-			add_action( 'woocommerce_api_wc_areeba_mpgs', array( $this, 'process_response' ) );
+			add_action( 'woocommerce_receipt_woo_mpgs', array( $this, 'receipt_page' ) );
+			add_action( 'woocommerce_api_woo_mpgs', array( $this, 'process_response' ) );
 		}
 
 		/**
@@ -103,89 +103,89 @@ function wc_areeba_mpgs_init() {
 		 */
 		public function init_form_fields() {
 
-			$this->form_fields = apply_filters( 'wc_areeba_mpgs_form_fields', array(
+			$this->form_fields = apply_filters( 'woo_mpgs_form_fields', array(
 				'enabled' => array(
-					'title'   => __( 'Enable/Disable', 'areeba-mpgs' ),
+					'title'   => __( 'Enable/Disable', 'woo-mpgs' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable Areeba MPGS Payment Module.', 'areeba-mpgs' ),
+					'label'   => __( 'Enable MPGS Payment Module.', 'woo-mpgs' ),
 					'default' => 'yes',
 				),
 				'title' => array(
-					'title'       => __( 'Title', 'areeba-mpgs' ),
+					'title'       => __( 'Title', 'woo-mpgs' ),
 					'type'        => 'text',
-					'description' => __( 'This controls the title for the payment method the customer sees during checkout.', 'areeba-mpgs' ),
-					'default'     => __( 'Credit Card', 'areeba-mpgs' ),
+					'description' => __( 'This controls the title for the payment method the customer sees during checkout.', 'woo-mpgs' ),
+					'default'     => __( 'Credit Card', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'description' => array(
-					'title'       => __( 'Description', 'areeba-mpgs' ),
+					'title'       => __( 'Description', 'woo-mpgs' ),
 					'type'        => 'textarea',
-					'description' => __( 'Payment method description that the customer will see on your checkout.', 'areeba-mpgs' ),
-					'default'     => __( 'Pay securely by Credit/Debit Card.', 'areeba-mpgs' ),
+					'description' => __( 'Payment method description that the customer will see on your checkout.', 'woo-mpgs' ),
+					'default'     => __( 'Pay securely by Credit/Debit Card.', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'merchant_id' => array(
-					'title'       => __( 'Merchant ID', 'areeba-mpgs' ),
+					'title'       => __( 'Merchant ID', 'woo-mpgs' ),
 					'type'        => 'text',
-					'description' => __( 'Merchant ID, given by Areeba', 'areeba-mpgs' ),
+					'description' => __( 'Merchant ID, given by the Bank', 'woo-mpgs' ),
 					'placeholder' => __( 'Merchant ID', 'woocommerce' ),
 					'desc_tip'    => true
 				),
 				'authentication_password' => array(
-					'title'       => __( 'Authentication Password', 'areeba-mpgs' ),
+					'title'       => __( 'Authentication Password', 'woo-mpgs' ),
 					'type'        => 'text',
-					'description' => __( 'Authentication Password, given by Areeba', 'areeba-mpgs' ),
-					'placeholder' => __( 'Authentication Password', 'areeba-mpgs' ),
+					'description' => __( 'Authentication Password, given by the Bank', 'woo-mpgs' ),
+					'placeholder' => __( 'Authentication Password', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'service_host' => array(
-					'title'       => __( 'MPGS URL', 'areeba-mpgs' ),
+					'title'       => __( 'MPGS URL', 'woo-mpgs' ),
 					'type'        => 'text',
 					'css'         => 'width:100%',
-					'description' => __( 'MPGS URL, given by Areeba. This is an example: https://ap-gateway.mastercard.com/', 'areeba-mpgs' ),
-					'placeholder' => __( 'MPGS URL', 'areeba-mpgs' ),
-					'default'     => __( 'https://ap-gateway.mastercard.com/', 'areeba-mpgs' ),
+					'description' => __( 'MPGS URL, given by the Bank. This is an example: https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
+					'placeholder' => __( 'MPGS URL', 'woo-mpgs' ),
+					'default'     => __( 'https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'merchant_name' => array(
-					'title'       => __( 'Name', 'areeba-mpgs' ),
+					'title'       => __( 'Name', 'woo-mpgs' ),
 					'type'        => 'text',
-					'description' => __( 'Merchant name that will appear in the gateway page or popup', 'areeba-mpgs' ),
+					'description' => __( 'Merchant name that will appear in the gateway page or popup', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'merchant_address1' => array(
-					'title'       => __( 'Merchant Address Line 1', 'areeba-mpgs' ),
+					'title'       => __( 'Merchant Address Line 1', 'woo-mpgs' ),
 					'type'        => 'text',
-					'description' => __( 'Merchant Address Line 1 that will appear in the gateway page or popup', 'areeba-mpgs' ),
+					'description' => __( 'Merchant Address Line 1 that will appear in the gateway page or popup', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'merchant_address2' => array(
-					'title'       => __( 'Merchant Address Line 2', 'areeba-mpgs' ),
+					'title'       => __( 'Merchant Address Line 2', 'woo-mpgs' ),
 					'type'        => 'text',
-					'description' => __( 'Merchant Address Line 2 that will appear in the gateway page or popup', 'areeba-mpgs' ),
+					'description' => __( 'Merchant Address Line 2 that will appear in the gateway page or popup', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'checkout_interaction' => array(
-					'title'       => __( 'Checkout Interaction', 'areeba-mpgs' ),
+					'title'       => __( 'Checkout Interaction', 'woo-mpgs' ),
 					'type'        => 'select',
-					'description' => __( 'Choose checkout interaction type', 'areeba-mpgs' ),
+					'description' => __( 'Choose checkout interaction type', 'woo-mpgs' ),
 					'options'     => array( 'lightbox' => 'Lightbox', 'paymentpage' => 'Payment Page' ),
 					'default'     => '1',
 				),
 				'thank_you_msg' => array(
-					'title'       => __( 'Transaction Success Message', 'areeba-mpgs' ),
+					'title'       => __( 'Transaction Success Message', 'woo-mpgs' ),
 					'type'        => 'textarea',
-					'description' => __( 'Put the message you want to display after a successfull transaction.', 'areeba-mpgs' ),
-					'placeholder' => __( 'Transaction Success Message', 'areeba-mpgs' ),
-					'default'     => __( 'Thank you for shopping with us. Your account has been charged and your transaction is successful. We will be shipping your order to you soon.', 'areeba-mpgs' ),
+					'description' => __( 'Put the message you want to display after a successfull transaction.', 'woo-mpgs' ),
+					'placeholder' => __( 'Transaction Success Message', 'woo-mpgs' ),
+					'default'     => __( 'Thank you for shopping with us. Your account has been charged and your transaction is successful. We will be shipping your order to you soon.', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'transaction_failed_msg' => array(
-					'title'       => __( 'Transaction Failed Message', 'areeba-mpgs' ),
+					'title'       => __( 'Transaction Failed Message', 'woo-mpgs' ),
 					'type'        => 'textarea',
-					'description' => __( 'Put whatever message you want to display after a transaction failed.', 'areeba-mpgs' ),
-					'placeholder' => __( 'Transaction Failed Message', 'areeba-mpgs' ),
-					'default'     => __( 'Thank you for shopping with us. However, the transaction has been declined.', 'areeba-mpgs' ),
+					'description' => __( 'Put whatever message you want to display after a transaction failed.', 'woo-mpgs' ),
+					'placeholder' => __( 'Transaction Failed Message', 'woo-mpgs' ),
+					'default'     => __( 'Thank you for shopping with us. However, the transaction has been declined.', 'woo-mpgs' ),
 					'desc_tip'    => true
 				)
 			) );
@@ -222,8 +222,8 @@ function wc_areeba_mpgs_init() {
 
 			if( $response['result'] == 'SUCCESS' && ! empty( $response['successIndicator'] ) ) {
 
-				update_post_meta( $order_id,'areeba_mpgs_successIndicator', $response['successIndicator'] );
-				update_post_meta( $order_id,'areeba_mpgs_sessionVersion', $response['session']['version'] );
+				update_post_meta( $order_id,'woo_mpgs_successIndicator', $response['successIndicator'] );
+				update_post_meta( $order_id,'woo_mpgs_sessionVersion', $response['session']['version'] );
 
 				$pay_url = add_query_arg( array(
 					'sessionId' => $response['session']['id'],
@@ -237,7 +237,7 @@ function wc_areeba_mpgs_init() {
 				);
 
 			} else {
-				wc_add_notice( __( 'Payment error: ', 'areeba-mpgs' ) . $response['error']['explanation'], 'error' );
+				wc_add_notice( __( 'Payment error: ', 'woo-mpgs' ) . $response['error']['explanation'], 'error' );
 			}
 		}
 
@@ -252,12 +252,12 @@ function wc_areeba_mpgs_init() {
 
 				$order = wc_get_order( $order_id );
 				?>
-				<p class="loading-payment-text"><?php echo __( 'Loading payment method, please wait. This may take up to 30 seconds.', 'areeba-mpgs' ); ?></p>
+				<p class="loading-payment-text"><?php echo __( 'Loading payment method, please wait. This may take up to 30 seconds.', 'woo-mpgs' ); ?></p>
 				<script
 					src="<?php echo $this->service_host; ?>checkout/version/49/checkout.js"
 					data-error="errorCallback"
 					data-cancel="<?php echo wc_get_checkout_url(); ?>"
-					data-complete="<?php echo add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'wc_areeba_mpgs' ), home_url('/') ) ?>">
+					data-complete="<?php echo add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') ) ?>">
 				</script>
 				<script type="text/javascript">
 
@@ -272,7 +272,7 @@ function wc_areeba_mpgs_init() {
                             id: "<?php echo $order_id; ?>",
                             amount: '<?php echo $order->get_total(); ?>',
                             currency: "<?php echo get_woocommerce_currency(); ?>",
-                            description: "<?php printf( __( 'Pay for order #%d via %s', 'areeba-mpgs' ), $order_id, $this->title ); ?>",
+                            description: "<?php printf( __( 'Pay for order #%d via %s', 'woo-mpgs' ), $order_id, $this->title ); ?>",
                             customerOrderDate:"<?php echo date('Y-m-d'); ?>",
                             customerReference:"<?php echo $order->user_id; ?>",
                             reference:"<?php echo $order_id; ?>"
@@ -316,14 +316,14 @@ function wc_areeba_mpgs_init() {
 				</script>
 				<?php
 			} else {
-				wc_add_notice( __( 'Payment error: Session not found.', 'areeba-mpgs' ), 'error' );
+				wc_add_notice( __( 'Payment error: Session not found.', 'woo-mpgs' ), 'error' );
 				wp_redirect( wc_get_checkout_url() );
 				exit;
 			}
 		}
 
 		/**
-		 * Handle Areeba MPGS response
+		 * Handle MPGS response
 		 */
 		public function process_response () {
 
@@ -331,7 +331,7 @@ function wc_areeba_mpgs_init() {
 			$order_id = $_REQUEST['order_id'];
 			$order = wc_get_order( $order_id );
 			$resultIndicator = $_REQUEST['resultIndicator'];
-			$mpgs_successIndicator = get_post_meta( $order_id, "areeba_mpgs_successIndicator", true );
+			$mpgs_successIndicator = get_post_meta( $order_id, "woo_mpgs_successIndicator", true );
 
 			if( $resultIndicator == $mpgs_successIndicator ) {
 				$woocommerce->cart->empty_cart();
@@ -350,17 +350,17 @@ function wc_areeba_mpgs_init() {
                 $transaction_receipt = $response['transaction'][0]['transaction']['receipt'];
 
                 if( ! empty( $transaction_id ) && ! empty( $transaction_receipt ) ) {
-	                $order->add_order_note( sprintf( __( 'MPGS Payment completed with Transaction ID: %s and Transaction Receipt: %s.', 'areeba-mpgs' ), $transaction_id, $transaction_receipt ) );
+	                $order->add_order_note( sprintf( __( 'MPGS Payment completed with Transaction ID: %s and Transaction Receipt: %s.', 'woo-mpgs' ), $transaction_id, $transaction_receipt ) );
 	                $order->payment_complete( $transaction_id );
 
 	                wp_redirect( $this->get_return_url( $order ) );
 	                exit;
                 } else {
-	                wc_add_notice( __('Payment error: Something went wrong.', 'areeba-mpgs'), 'error' );
+	                wc_add_notice( __('Payment error: Something went wrong.', 'woo-mpgs'), 'error' );
                 }
 
             } else {
-				wc_add_notice( __('Payment error: Invalid transaction.', 'areeba-mpgs'), 'error' );
+				wc_add_notice( __('Payment error: Invalid transaction.', 'woo-mpgs'), 'error' );
             }
             // reaching this line means there is an error, redirect back to checkout page
 			wp_redirect( wc_get_checkout_url() );
@@ -634,4 +634,4 @@ function wc_areeba_mpgs_init() {
 		}
 	}
 }
-add_action( 'plugins_loaded', 'wc_areeba_mpgs_init' );
+add_action( 'plugins_loaded', 'woo_mpgs_init' );

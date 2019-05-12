@@ -1,2 +1,2 @@
-# woo-areeba-mpgs
-Extends WooCommerce with Areeba MasterCard Payment Gateway Services (MPGS).
+# woo-mpgs
+Extends WooCommerce with MasterCard Payment Gateway Services (MPGS).
