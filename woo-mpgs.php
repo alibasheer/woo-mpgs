@@ -70,7 +70,8 @@ function woo_mpgs_init() {
 		public function __construct() {
 
 			$this->id                 = 'woo_mpgs';
-			$this->icon               = apply_filters( 'woo_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
+			$this->mpgs_icon          = $this->get_option( 'mpgs_icon' );
+			$this->icon               = ( ! empty( $this->mpgs_icon ) ) ? $this->mpgs_icon : apply_filters( 'woo_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
 			$this->has_fields         = false;
 			$this->method_title       = __( 'MPGS', 'woo-mpgs' );
 			$this->method_description = __( 'Allows MasterCard Payment Gateway Services (MPGS)', 'woo-mpgs' );
@@ -82,7 +83,6 @@ function woo_mpgs_init() {
 			// Define user set variables
 			$this->title                = $this->get_option( 'title' );
 			$this->description          = $this->get_option( 'description' );
-			$this->mpgs_icon            = $this->get_option( 'mpgs_icon' );
 			$this->service_host         = $this->get_option( 'service_host' );
 			$this->merchant_id          = $this->get_option( 'merchant_id' );
 			$this->auth_pass            = $this->get_option( 'authentication_password' );
