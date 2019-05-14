@@ -346,10 +346,12 @@ function woo_mpgs_init() {
 	                wp_redirect( $this->get_return_url( $order ) );
 	                exit;
                 } else {
+	                $order->add_order_note( __('Payment error: Something went wrong.', 'woo-mpgs') );
 	                wc_add_notice( __('Payment error: Something went wrong.', 'woo-mpgs'), 'error' );
                 }
 
             } else {
+				$order->add_order_note( __('Payment error: Invalid transaction.', 'woo-mpgs') );
 				wc_add_notice( __('Payment error: Invalid transaction.', 'woo-mpgs'), 'error' );
             }
             // reaching this line means there is an error, redirect back to checkout page
