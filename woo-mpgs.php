@@ -83,9 +83,9 @@ function woo_mpgs_init() {
 			$this->title                = $this->get_option( 'title' );
 			$this->description          = $this->get_option( 'description' );
 			$this->mpgs_icon            = $this->get_option( 'mpgs_icon' );
+			$this->service_host         = $this->get_option( 'service_host' );
 			$this->merchant_id          = $this->get_option( 'merchant_id' );
 			$this->auth_pass            = $this->get_option( 'authentication_password' );
-			$this->service_host         = $this->get_option( 'service_host' );
 			$this->merchant_name        = $this->get_option( 'merchant_name' );
 			$this->merchant_address1    = $this->get_option( 'merchant_address1' );
 			$this->merchant_address2    = $this->get_option( 'merchant_address2' );
@@ -130,6 +130,15 @@ function woo_mpgs_init() {
 					'description' => __( 'Enter an image URL to change the icon.', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
+				'service_host' => array(
+					'title'       => __( 'MPGS URL', 'woo-mpgs' ),
+					'type'        => 'text',
+					'css'         => 'width:100%',
+					'description' => __( 'MPGS URL, given by the Bank. This is an example: https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
+					'placeholder' => __( 'MPGS URL', 'woo-mpgs' ),
+					'default'     => __( 'https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
+					'desc_tip'    => true
+				),
 				'merchant_id' => array(
 					'title'       => __( 'Merchant ID', 'woo-mpgs' ),
 					'type'        => 'text',
@@ -142,15 +151,6 @@ function woo_mpgs_init() {
 					'type'        => 'text',
 					'description' => __( 'Authentication Password, given by the Bank', 'woo-mpgs' ),
 					'placeholder' => __( 'Authentication Password', 'woo-mpgs' ),
-					'desc_tip'    => true
-				),
-				'service_host' => array(
-					'title'       => __( 'MPGS URL', 'woo-mpgs' ),
-					'type'        => 'text',
-					'css'         => 'width:100%',
-					'description' => __( 'MPGS URL, given by the Bank. This is an example: https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
-					'placeholder' => __( 'MPGS URL', 'woo-mpgs' ),
-					'default'     => __( 'https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'merchant_name' => array(
