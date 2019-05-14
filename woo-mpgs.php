@@ -82,6 +82,7 @@ function woo_mpgs_init() {
 			// Define user set variables
 			$this->title                = $this->get_option( 'title' );
 			$this->description          = $this->get_option( 'description' );
+			$this->mpgs_icon            = $this->get_option( 'mpgs_icon' );
 			$this->merchant_id          = $this->get_option( 'merchant_id' );
 			$this->auth_pass            = $this->get_option( 'authentication_password' );
 			$this->service_host         = $this->get_option( 'service_host' );
@@ -120,6 +121,13 @@ function woo_mpgs_init() {
 					'type'        => 'textarea',
 					'description' => __( 'Payment method description that the customer will see on your checkout.', 'woo-mpgs' ),
 					'default'     => __( 'Pay securely by Credit/Debit Card.', 'woo-mpgs' ),
+					'desc_tip'    => true
+				),
+				'mpgs_icon' => array(
+					'title'       => __( 'Icon', 'woo-mpgs' ),
+					'type'        => 'text',
+					'css'         => 'width:100%',
+					'description' => __( 'Enter an image URL to change the icon.', 'woo-mpgs' ),
 					'desc_tip'    => true
 				),
 				'merchant_id' => array(
