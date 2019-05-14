@@ -39,10 +39,17 @@ Yes, you should install WooCommerce plugin first.
 
 == Changelog ==
 
+= 1.0.1 =
+* Option to edit payment icon
+* Add order notes on error for better debugging
+
 = 1.0 =
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Added the option to edit payment icon.
 
 = 1.0 =
 Initial release
