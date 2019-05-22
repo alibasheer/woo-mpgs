@@ -15,13 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-/*
- *  Make sure WooCommerce is active
- */
-if ( ! class_exists( 'woocommerce' ) ) {
-	return;
-}
-
 /**
  * Adds plugin page links
  *
@@ -62,6 +55,15 @@ add_filter( 'woocommerce_payment_gateways', 'woo_mpgs_add_to_gateways' );
  * @author 		Ali Basheer
  */
 function woo_mpgs_init() {
+
+	/**
+	 * Make sure WooCommerce is active
+	 */
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'MPGS requires WooCommerce to be installed and active. You can download %s here.', 'woo-mpgs' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+		return;
+	}
+
 	class WOO_MPGS extends WC_Payment_Gateway {
 
 		/**
