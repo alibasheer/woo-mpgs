@@ -219,6 +219,16 @@ function woo_mpgs_init() {
 				),
 			) );
 
+			if ( is_wp_error( $response_json ) ) {
+
+				wc_add_notice( __( 'Payment error: Make sure you are entering the correct MPGS URL. It should only be the root URL (e.g. https://ap-gateway.mastercard.com/) and ending with a slash "/".', 'woo-mpgs' ), 'error' );
+
+				return array(
+					'result'   => 'fail',
+					'redirect' => '',
+				);
+			}
+
 			$response = json_decode( $response_json['body'], true );
 
 			if( $response['result'] == 'SUCCESS' && ! empty( $response['successIndicator'] ) ) {
