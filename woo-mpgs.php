@@ -86,6 +86,7 @@ function woo_mpgs_init() {
 			$this->title                = $this->get_option( 'title' );
 			$this->description          = $this->get_option( 'description' );
 			$this->service_host         = $this->get_option( 'service_host' );
+			$this->api_version          = $this->get_option( 'api_version' );
 			$this->merchant_id          = $this->get_option( 'merchant_id' );
 			$this->auth_pass            = $this->get_option( 'authentication_password' );
 			$this->merchant_name        = $this->get_option( 'merchant_name' );
@@ -139,6 +140,14 @@ function woo_mpgs_init() {
 					'description' => __( 'MPGS URL, given by the Bank. This is an example: https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
 					'placeholder' => __( 'MPGS URL', 'woo-mpgs' ),
 					'default'     => __( 'https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
+					'desc_tip'    => true
+				),
+				'api_version' => array(
+					'title'       => __( 'API Version', 'woo-mpgs' ),
+					'type'        => 'text',
+					'description' => __( 'API version, given by the Bank', 'woo-mpgs' ),
+					'placeholder' => __( 'MPGS API Version', 'woo-mpgs' ),
+					'default'     => 49,
 					'desc_tip'    => true
 				),
 				'merchant_id' => array(
@@ -200,7 +209,7 @@ function woo_mpgs_init() {
 			$session_request['order']['amount']   = $order->order_total;
 			$session_request['order']['currency'] = get_woocommerce_currency();
 
-			$request_url = $this->service_host . "api/rest/version/49/merchant/" . $this->merchant_id . "/session";
+			$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/session";
 
 			// Request the session
 			$response_json = wp_remote_post( $request_url, array(
@@ -246,7 +255,7 @@ function woo_mpgs_init() {
 				?>
 				<p class="loading-payment-text"><?php echo __( 'Loading payment method, please wait. This may take up to 30 seconds.', 'woo-mpgs' ); ?></p>
 				<script
-					src="<?php echo $this->service_host; ?>checkout/version/49/checkout.js"
+					src="<?php echo $this->service_host; ?>checkout/version/<?php echo $this->api_version; ?>/checkout.js"
 					data-error="errorCallback"
 					data-cancel="<?php echo wc_get_checkout_url(); ?>"
 					data-complete="<?php echo add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') ) ?>">
@@ -328,7 +337,7 @@ function woo_mpgs_init() {
 			if( $resultIndicator == $mpgs_successIndicator ) {
 				$woocommerce->cart->empty_cart();
 
-				$request_url = $this->service_host . "api/rest/version/49/merchant/" . $this->merchant_id . "/order/" . $order_id;
+				$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/order/" . $order_id;
 
 				// Request the order payment details
 				$response_json = wp_remote_get( $request_url, array(
