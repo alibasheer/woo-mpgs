@@ -263,7 +263,6 @@ function woo_mpgs_init() {
 
 				$order = wc_get_order( $order_id );
 				?>
-				<p class="loading-payment-text"><?php echo __( 'Loading payment method, please wait. This may take up to 30 seconds.', 'woo-mpgs' ); ?></p>
 				<script
 					src="<?php echo $this->service_host; ?>checkout/version/<?php echo $this->api_version; ?>/checkout.js"
 					data-error="errorCallback"
@@ -323,9 +322,20 @@ function woo_mpgs_init() {
                             }
                         }
                     });
-                    <?php echo ( $this->checkout_interaction === 'paymentpage' ) ? 'Checkout.showPaymentPage();' : 'Checkout.showLightbox();'; ?>
 				</script>
-				<?php
+                <?php
+                if ( ! empty( $_SERVER['HTTP_REFERER'] ) && strtolower( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST ) ) == strtolower( $_SERVER['HTTP_HOST'] ) ) {
+                    ?>
+                    <p class="loading-payment-text"><?php echo __( 'Loading payment method, please wait. This may take up to 30 seconds.', 'woo-mpgs' ); ?></p>
+                    <script type="text/javascript">
+                        <?php echo ( $this->checkout_interaction === 'paymentpage' ) ? 'Checkout.showPaymentPage();' : 'Checkout.showLightbox();';?>
+                    </script>
+                    <?php
+                } else {
+                    ?>
+                    <p class="processing-payment-text"><?php echo __( 'Processing your order, please wait.', 'woo-mpgs' ); ?></p>
+                    <?php
+                }
 			} else {
 				wc_add_notice( __( 'Payment error: Session not found.', 'woo-mpgs' ), 'error' );
 				wp_redirect( wc_get_checkout_url() );
