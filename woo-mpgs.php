@@ -367,10 +367,11 @@ function woo_mpgs_init() {
 				) );
 
 				$response = json_decode( $response_json['body'], true );
+				$transaction_result = $response['transaction'][0]['result'];
                 $transaction_id = $response['transaction'][0]['authorizationResponse']['transactionIdentifier'];
                 $transaction_receipt = $response['transaction'][0]['transaction']['receipt'];
 
-                if( ! empty( $transaction_id ) && ! empty( $transaction_receipt ) ) {
+                if( $transaction_result == "SUCCESS" && ! empty( $transaction_id ) && ! empty( $transaction_receipt ) ) {
 	                $order->add_order_note( sprintf( __( 'MPGS Payment completed with Transaction ID: %s and Transaction Receipt: %s.', 'woo-mpgs' ), $transaction_id, $transaction_receipt ) );
 	                $order->payment_complete( $transaction_id );
 
