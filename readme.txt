@@ -1,10 +1,10 @@
 === WooCommerce MPGS ===
 Contributors: alibasheer
 Donate link: http://alibasheer.com
-Tags: woocommerce, areeba, mpgs, payment, gateway
+Tags: woocommerce, mpgs, payment, gateway, areeba
 Requires at least: 4.0
 Tested up to: 5.2
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -39,6 +39,12 @@ Yes, you should install WooCommerce plugin first.
 
 == Changelog ==
 
+= 1.1.0 =
+* Multisite support
+* Fix redirection after payment
+* Enhanced error handling
+* Enhanced payment verification checking
+
 = 1.0.1 =
 * Option to edit payment icon
 * Add order notes on error for better debugging
@@ -47,6 +53,9 @@ Yes, you should install WooCommerce plugin first.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+This version comes with lots of enhancement related to multisite, payment verification, error handling...
 
 = 1.0.1 =
 Added the option to edit payment icon.
