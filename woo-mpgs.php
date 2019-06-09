@@ -208,6 +208,7 @@ function woo_mpgs_init() {
 			$session_request['order']['id']       = $order_id;
 			$session_request['order']['amount']   = $order->order_total;
 			$session_request['order']['currency'] = get_woocommerce_currency();
+			$session_request['interaction']['returnUrl'] = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
 
 			$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/session";
 
@@ -267,7 +268,7 @@ function woo_mpgs_init() {
 					src="<?php echo $this->service_host; ?>checkout/version/<?php echo $this->api_version; ?>/checkout.js"
 					data-error="errorCallback"
 					data-cancel="<?php echo wc_get_checkout_url(); ?>"
-					data-complete="<?php echo add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') ) ?>">
+				>
 				</script>
 				<script type="text/javascript">
 
