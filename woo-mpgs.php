@@ -355,7 +355,6 @@ function woo_mpgs_init() {
 			$mpgs_successIndicator = get_post_meta( $order_id, "woo_mpgs_successIndicator", true );
 
 			if( $resultIndicator == $mpgs_successIndicator ) {
-				$woocommerce->cart->empty_cart();
 
 				$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/order/" . $order_id;
 
@@ -372,6 +371,7 @@ function woo_mpgs_init() {
                 $transaction_receipt = $response['transaction'][0]['transaction']['receipt'];
 
                 if( $transaction_result == "SUCCESS" && ! empty( $transaction_id ) && ! empty( $transaction_receipt ) ) {
+	                $woocommerce->cart->empty_cart();
 	                $order->add_order_note( sprintf( __( 'MPGS Payment completed with Transaction ID: %s and Transaction Receipt: %s.', 'woo-mpgs' ), $transaction_id, $transaction_receipt ) );
 	                $order->payment_complete( $transaction_id );
 
