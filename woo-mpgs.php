@@ -358,7 +358,7 @@ function woo_mpgs_init() {
 					),
 				) );
 
-				$response = json_decode( $response_json['body'], true );
+				$response = json_decode( utf8_decode( $response_json['body'] ), true );
 				$transaction_index = count( $response['transaction'] ) - 1;
 				$transaction_result = $response['transaction'][$transaction_index]['result'];
                 $transaction_id = $response['transaction'][$transaction_index]['authorizationResponse']['transactionIdentifier'];
