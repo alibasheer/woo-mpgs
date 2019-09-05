@@ -71,12 +71,12 @@ function woo_mpgs_init() {
 		 */
 		public function __construct() {
 
-			$this->id				  = 'woo_mpgs';
-			$this->mpgs_icon		  = $this->get_option( 'mpgs_icon' );
-			$this->icon				  = ( ! empty( $this->mpgs_icon ) ) ? $this->mpgs_icon : apply_filters( 'woo_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
-			$this->has_fields		  = false;
-			$this->method_title		  = __( 'MPGS', 'woo-mpgs' );
-			$this->method_description = __( 'Allows MasterCard Payment Gateway Services (MPGS)', 'woo-mpgs' );
+			$this->id					= 'woo_mpgs';
+			$this->mpgs_icon			= $this->get_option( 'mpgs_icon' );
+			$this->icon					= ( ! empty( $this->mpgs_icon ) ) ? $this->mpgs_icon : apply_filters( 'woo_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
+			$this->has_fields			= false;
+			$this->method_title			= __( 'MPGS', 'woo-mpgs' );
+			$this->method_description	= __( 'Allows MasterCard Payment Gateway Services (MPGS)', 'woo-mpgs' );
 
 			// Load the settings.
 			$this->init_form_fields();
@@ -107,10 +107,10 @@ function woo_mpgs_init() {
 
 			$this->form_fields = apply_filters( 'woo_mpgs_form_fields', array(
 				'enabled' => array(
-					'title'   => __( 'Enable/Disable', 'woo-mpgs' ),
-					'type'	  => 'checkbox',
-					'label'   => __( 'Enable MPGS Payment Module.', 'woo-mpgs' ),
-					'default' => 'yes',
+					'title'		=> __( 'Enable/Disable', 'woo-mpgs' ),
+					'type'		=> 'checkbox',
+					'label'		=> __( 'Enable MPGS Payment Module.', 'woo-mpgs' ),
+					'default'	=> 'yes',
 				),
 				'title' => array(
 					'title'		  => __( 'Title', 'woo-mpgs' ),
@@ -203,11 +203,11 @@ function woo_mpgs_init() {
 
 			// Prepare session request
 			$session_request = array();
-			$session_request['apiOperation']	  = "CREATE_CHECKOUT_SESSION";
-			$session_request['userId']			  = $order->user_id;
-			$session_request['order']['id']		  = $order_id;
-			$session_request['order']['amount']   = $order->order_total;
-			$session_request['order']['currency'] = get_woocommerce_currency();
+			$session_request['apiOperation']		= "CREATE_CHECKOUT_SESSION";
+			$session_request['userId']				= $order->user_id;
+			$session_request['order']['id']			= $order_id;
+			$session_request['order']['amount']		= $order->order_total;
+			$session_request['order']['currency']	= get_woocommerce_currency();
 			$session_request['interaction']['operation'] = 'VERIFY';
 			$session_request['interaction']['returnUrl'] = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
 
@@ -226,8 +226,8 @@ function woo_mpgs_init() {
 				wc_add_notice( __( 'Payment error: Make sure you are entering the correct MPGS URL. It should only be the root URL (e.g. https://ap-gateway.mastercard.com/) and ending with a slash "/".', 'woo-mpgs' ), 'error' );
 
 				return array(
-					'result'   => 'fail',
-					'redirect' => '',
+					'result'	=> 'fail',
+					'redirect'	=> '',
 				);
 			}
 
@@ -246,8 +246,8 @@ function woo_mpgs_init() {
 				), wc_get_checkout_url() );
 
 				return array(
-					'result'   => 'success',
-					'redirect' => $pay_url
+					'result'	=> 'success',
+					'redirect'	=> $pay_url
 				);
 
 			} else {
@@ -319,7 +319,7 @@ function woo_mpgs_init() {
 							},
 							displayControl: {
 								billingAddress  : "HIDE",
-								customerEmail   : "HIDE",
+								customerEmail	: "HIDE",
 								orderSummary	: "HIDE",
 								shipping		: "HIDE"
 							}
