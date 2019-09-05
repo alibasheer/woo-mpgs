@@ -242,6 +242,7 @@ function woo_mpgs_init() {
 					'sessionId' => $response['session']['id'],
 					'order'     => $order->get_id(),
 					'key'       => $order->order_key,
+					'order-pay' => true,
 				), wc_get_checkout_url() );
 
 				return array(
