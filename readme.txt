@@ -1,10 +1,10 @@
 === WooCommerce MPGS ===
 Contributors: alibasheer
 Donate link: http://alibasheer.com
-Tags: woocommerce, mpgs, payment, gateway, areeba
+Tags: woocommerce, mastercard, mpgs, payment, gateway
 Requires at least: 4.0
 Tested up to: 5.2
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -39,6 +39,12 @@ Yes, you should install WooCommerce plugin first.
 
 == Changelog ==
 
+= 1.2.0 =
+* Support MPGS API 52
+* Fix bug with some American Express cards related to handling JSON response
+* Allow admin to create orders for customers
+* Remove transaction ID logging and keep only transaction receipt
+
 = 1.1.0 =
 * Multisite support
 * Fix redirection after payment
@@ -53,6 +59,9 @@ Yes, you should install WooCommerce plugin first.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+This version comes with lots of enhancement related to MPGS API 52, supporting creating orders by admin to customers
 
 = 1.1.0 =
 This version comes with lots of enhancement related to multisite, payment verification, error handling...
