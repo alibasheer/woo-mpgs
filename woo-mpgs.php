@@ -208,7 +208,7 @@ function woo_mpgs_init() {
 			$session_request['order']['id']       = $order_id;
 			$session_request['order']['amount']   = $order->order_total;
 			$session_request['order']['currency'] = get_woocommerce_currency();
-			$session_request['interaction']['operation'] = 'NONE';
+			$session_request['interaction']['operation'] = 'VERIFY';
 			$session_request['interaction']['returnUrl'] = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
 
 			$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/session";
