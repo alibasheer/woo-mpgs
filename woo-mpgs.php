@@ -363,8 +363,8 @@ function woo_mpgs_init() {
 				$response = json_decode( utf8_decode( $response_json['body'] ), true );
 				$transaction_index = count( $response['transaction'] ) - 1;
 				$transaction_result = $response['transaction'][$transaction_index]['result'];
-                $transaction_id = $response['transaction'][$transaction_index]['authorizationResponse']['transactionIdentifier'];
-                $transaction_receipt = $response['transaction'][$transaction_index]['transaction']['receipt'];
+				$transaction_id = $response['transaction'][$transaction_index]['authorizationResponse']['transactionIdentifier'];
+				$transaction_receipt = $response['transaction'][$transaction_index]['transaction']['receipt'];
 
                 if( $transaction_result == "SUCCESS" && ! empty( $transaction_id ) && ! empty( $transaction_receipt ) ) {
 	                $woocommerce->cart->empty_cart();
