@@ -204,9 +204,9 @@ function woo_mpgs_init() {
 			// Prepare session request
 			$session_request = array();
 			$session_request['apiOperation']		= "CREATE_CHECKOUT_SESSION";
-			$session_request['userId']				= $order->user_id;
+			$session_request['userId']				= $order->get_user_id();
 			$session_request['order']['id']			= $order_id;
-			$session_request['order']['amount']		= $order->order_total;
+			$session_request['order']['amount']		= $order->get_total();
 			$session_request['order']['currency']	= get_woocommerce_currency();
 			$session_request['interaction']['operation'] = 'VERIFY';
 			$session_request['interaction']['returnUrl'] = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
@@ -241,7 +241,7 @@ function woo_mpgs_init() {
 				$pay_url = add_query_arg( array(
 					'sessionId' => $response['session']['id'],
 					'order'		=> $order->get_id(),
-					'key'		=> $order->order_key,
+					'key'		=> $order->get_order_key(),
 					'order-pay' => true,
 				), wc_get_checkout_url() );
 
@@ -287,7 +287,7 @@ function woo_mpgs_init() {
 							currency: "<?php echo get_woocommerce_currency(); ?>",
 							description: "<?php printf( __( 'Pay for order #%d via %s', 'woo-mpgs' ), $order_id, $this->title ); ?>",
 							customerOrderDate:"<?php echo date('Y-m-d'); ?>",
-							customerReference:"<?php echo $order->user_id; ?>",
+							customerReference:"<?php echo $order->get_user_id(); ?>",
 							reference:"<?php echo $order_id; ?>"
 						},
 						session: {
