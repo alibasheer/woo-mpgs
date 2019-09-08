@@ -13,29 +13,31 @@ This plugin extends WooCommerce with MasterCard Payment Gateway Services (MPGS).
 
 == Description ==
 
-This plugin implement a Hosted Checkout integration, the user either redirected to MPGS payment gateway page, or pay through a popup/lightbox.
+This plugin implement a Hosted Checkout integration of the MasterCard Payment Gateway Services (MPGS). It has 2 checkout options, either redirect the user to MPGS payment gateway page, or pay through a popup/lightbox on your website without redirection outside your website.
 
 == Installation ==
 
 1. Download the WooCommerce MPGS plugin zip file and extract to the /wp-content/plugins/ directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
 1. Go to WooCommerce backend settings page
-1. Navigate to Checkout tab
+1. Navigate to Payments tab
 1. Then go to settings of MPGS gateway. Fill the form with credentials and save changes then you are ready.
 
 == Frequently Asked Questions ==
 
-= Does it support WooCommerce? =
+= How to generate Authentication Password? =
 
-Yes, it is a WooCommerce add-on.
+First, login to merchant account (credentials given by the bank) and go to Admin -> Integration Settings. From there generate the Integration Authentication Password and use it in the plugin.
 
-= Do I need to install WooCommerce plugin? =
+= What is MPGS URL and what is it's format? =
 
-Yes, you should install WooCommerce plugin first.
+It is the URL that is needed to connect with the Mastercard gateway. This link should be given by your bank. Make sure to keep only the base link with only one slash at the end. It should be in this format: https://example.mastercard.com/
 
 == Screenshots ==
 
 1. WooCommerce MPGS setting page
+2. Lightbox (popup) payment
+3. Redirect to Payment page
 
 == Changelog ==
 
