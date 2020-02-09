@@ -6,7 +6,7 @@
  * Text Domain: woo-mpgs
  * Domain Path: /languages
  * Author: Ali Basheer
- * Author URI: http://alibasheer.com
+ * Author URI: https://alibasheer.com
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
