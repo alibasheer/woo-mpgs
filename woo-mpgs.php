@@ -146,7 +146,7 @@ function woo_mpgs_init() {
 					'title'		  => __( 'API Version', 'woo-mpgs' ),
 					'type'		  => 'text',
 					'description' => __( 'API version, given by the Bank', 'woo-mpgs' ),
-					'placeholder' => __( 'MPGS API Version', 'woo-mpgs' ),
+					'placeholder' => __( 'MPGS API Version (49 is recommended)', 'woo-mpgs' ),
 					'default'	  => 49,
 					'desc_tip'	  => true
 				),
@@ -208,7 +208,6 @@ function woo_mpgs_init() {
 			$session_request['order']['id']			= $order_id;
 			$session_request['order']['amount']		= $order->get_total();
 			$session_request['order']['currency']	= get_woocommerce_currency();
-			$session_request['interaction']['operation'] = 'VERIFY';
 			$session_request['interaction']['returnUrl'] = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
 
 			$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/session";

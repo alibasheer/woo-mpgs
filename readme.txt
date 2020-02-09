@@ -33,6 +33,10 @@ First, login to merchant account (credentials given by the bank) and go to Admin
 
 It is the URL that is needed to connect with the Mastercard gateway. This link should be given by your bank. Make sure to keep only the base link with only one slash at the end. It should be in this format: https://example.mastercard.com/
 
+= What is the recommended API Version to use? =
+
+We recommend using API version 49 as it is the most tested version with our plugin
+
 == Screenshots ==
 
 1. WooCommerce MPGS setting page
@@ -42,7 +46,6 @@ It is the URL that is needed to connect with the Mastercard gateway. This link s
 == Changelog ==
 
 = 1.2.0 =
-* Support MPGS API 52
 * Fix bug with some American Express cards related to handling JSON response
 * Allow admin to create orders for customers
 * Remove transaction ID logging and keep only transaction receipt
@@ -63,7 +66,7 @@ It is the URL that is needed to connect with the Mastercard gateway. This link s
 == Upgrade Notice ==
 
 = 1.2.0 =
-This version comes with lots of enhancement related to MPGS API 52, supporting creating orders by admin to customers
+This version comes with lots of enhancements, check change log for more details. If you faced any issue, contact me at alibasheer@hotmail.com
 
 = 1.1.0 =
 This version comes with lots of enhancement related to multisite, payment verification, error handling...
