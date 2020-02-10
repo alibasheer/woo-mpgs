@@ -238,11 +238,10 @@ function woo_mpgs_init() {
 				update_post_meta( $order_id,'woo_mpgs_sessionVersion', $response['session']['version'] );
 
 				$pay_url = add_query_arg( array(
-					'sessionId' => $response['session']['id'],
-					'order'		=> $order->get_id(),
-					'key'		=> $order->get_order_key(),
-					'order-pay' => true,
-				), wc_get_checkout_url() );
+					'sessionId'     => $response['session']['id'],
+					'key'		    => $order->get_order_key(),
+					'pay_for_order' => false,
+				), $order->get_checkout_payment_url() );
 
 				return array(
 					'result'	=> 'success',
