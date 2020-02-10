@@ -294,19 +294,19 @@ function woo_mpgs_init() {
 						},
 						billing:{
 							address: {
-								city:"<?php echo $order->billing_city; ?>",
-								country:"<?php echo $this->kia_convert_country_code( $order->billing_country ); ?>",
-								postcodeZip:"<?php echo $order->billing_postcode; ?>",
-								stateProvince:"<?php echo $order->billing_state; ?>",
-								street:"<?php echo $order->billing_address_1; ?>",
-								street2:"<?php echo $order->billing_address_2; ?>"
+								city:"<?php echo $order->get_billing_city(); ?>",
+								country:"<?php echo $this->kia_convert_country_code( $order->get_billing_country() ); ?>",
+								postcodeZip:"<?php echo $order->get_billing_postcode(); ?>",
+								stateProvince:"<?php echo $order->get_billing_state(); ?>",
+								street:"<?php echo $order->get_billing_address_1(); ?>",
+								street2:"<?php echo $order->get_billing_address_2(); ?>"
 							}
 						},
 						customer:{
-							email:"<?php echo $order->billing_email; ?>",
-							firstName:"<?php echo $order->billing_first_name; ?>",
-							lastName:"<?php echo $order->billing_last_name; ?>",
-							phone:"<?php echo $order->billing_phone; ?>"
+							email:"<?php echo $order->get_billing_email(); ?>",
+							firstName:"<?php echo $order->get_billing_first_name(); ?>",
+							lastName:"<?php echo $order->get_billing_last_name(); ?>",
+							phone:"<?php echo $order->get_billing_phone(); ?>"
 						},
 						interaction: {
 							merchant: {
