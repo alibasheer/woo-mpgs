@@ -222,7 +222,7 @@ function woo_mpgs_init() {
 
 			if ( is_wp_error( $response_json ) ) {
 
-				wc_add_notice( __( 'Payment error: Make sure you are entering the correct MPGS URL. It should only be the root URL (e.g. https://ap-gateway.mastercard.com/) and ending with a slash "/".', 'woo-mpgs' ), 'error' );
+				wc_add_notice( __( 'Payment error: Failed to communicate with MPGS server. Make sure MPGS URL looks like `https://example.mastercard.com/` by removing `checkout/version/*/checkout.js` and end the URL with a slash "/".', 'woo-mpgs' ), 'error' );
 
 				return array(
 					'result'	=> 'fail',
