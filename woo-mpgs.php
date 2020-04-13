@@ -98,6 +98,7 @@ function woo_mpgs_init() {
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 			add_action( 'woocommerce_receipt_woo_mpgs', array( $this, 'receipt_page' ) );
 			add_action( 'woocommerce_api_woo_mpgs', array( $this, 'process_response' ) );
+			add_action( 'wp_head', array( $this, 'add_checkout_script' ) );
 		}
 
 		/**
@@ -264,12 +265,6 @@ function woo_mpgs_init() {
 
 				$order = wc_get_order( $order_id );
 				?>
-				<script
-					src="<?php echo $this->service_host; ?>checkout/version/<?php echo $this->api_version; ?>/checkout.js"
-					data-error="errorCallback"
-					data-cancel="<?php echo wc_get_checkout_url(); ?>"
-				>
-				</script>
 				<script type="text/javascript">
 
 					function errorCallback( error ) {
@@ -382,6 +377,22 @@ function woo_mpgs_init() {
 			// reaching this line means there is an error, redirect back to checkout page
 			wp_redirect( wc_get_checkout_url() );
 			exit;
+		}
+
+		/**
+		 * load checkout script
+		 */
+		public function add_checkout_script() {
+			if ( ! empty( $_REQUEST['sessionId'] ) ) {
+			    ?>
+                <script
+                        src="<?php echo $this->service_host; ?>checkout/version/<?php echo $this->api_version; ?>/checkout.js"
+                        data-error="errorCallback"
+                        data-cancel="<?php echo wc_get_checkout_url(); ?>"
+                >
+                </script>
+			    <?php
+			}
 		}
 
 		/**
