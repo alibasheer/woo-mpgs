@@ -281,7 +281,7 @@ function woo_mpgs_init() {
 						merchant: "<?php echo $this->merchant_id; ?>",
 						order: {
 							id: "<?php echo $order_id; ?>",
-							amount: '<?php echo $order->get_total(); ?>',
+							amount: "<?php echo $order->get_total(); ?>",
 							currency: "<?php echo get_woocommerce_currency(); ?>",
 							description: "<?php printf( __( 'Pay for order #%d via %s', 'woo-mpgs' ), $order_id, $this->title ); ?>",
 							customerOrderDate:"<?php echo date('Y-m-d'); ?>",
