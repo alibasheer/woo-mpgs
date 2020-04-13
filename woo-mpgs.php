@@ -71,27 +71,27 @@ function woo_mpgs_init() {
 		 */
 		public function __construct() {
 
-			$this->id					= 'woo_mpgs';
-			$this->mpgs_icon			= $this->get_option( 'mpgs_icon' );
-			$this->icon					= ( ! empty( $this->mpgs_icon ) ) ? $this->mpgs_icon : apply_filters( 'woo_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
-			$this->has_fields			= false;
-			$this->method_title			= __( 'MPGS', 'woo-mpgs' );
-			$this->method_description	= __( 'Allows MasterCard Payment Gateway Services (MPGS)', 'woo-mpgs' );
+			$this->id                   = 'woo_mpgs';
+			$this->mpgs_icon            = $this->get_option( 'mpgs_icon' );
+			$this->icon                 = ( ! empty( $this->mpgs_icon ) ) ? $this->mpgs_icon : apply_filters( 'woo_mpgs_icon', plugins_url( 'assets/images/mastercard.png' , __FILE__ ) );
+			$this->has_fields           = false;
+			$this->method_title         = __( 'MPGS', 'woo-mpgs' );
+			$this->method_description   = __( 'Allows MasterCard Payment Gateway Services (MPGS)', 'woo-mpgs' );
 
 			// Load the settings.
 			$this->init_form_fields();
 			$this->init_settings();
 
 			// Define user set variables
-			$this->title				= $this->get_option( 'title' );
-			$this->description			= $this->get_option( 'description' );
-			$this->service_host			= $this->get_option( 'service_host' );
-			$this->api_version			= $this->get_option( 'api_version' );
-			$this->merchant_id			= $this->get_option( 'merchant_id' );
-			$this->auth_pass			= $this->get_option( 'authentication_password' );
-			$this->merchant_name		= $this->get_option( 'merchant_name' );
-			$this->merchant_address1	= $this->get_option( 'merchant_address1' );
-			$this->merchant_address2	= $this->get_option( 'merchant_address2' );
+			$this->title                = $this->get_option( 'title' );
+			$this->description          = $this->get_option( 'description' );
+			$this->service_host         = $this->get_option( 'service_host' );
+			$this->api_version          = $this->get_option( 'api_version' );
+			$this->merchant_id          = $this->get_option( 'merchant_id' );
+			$this->auth_pass            = $this->get_option( 'authentication_password' );
+			$this->merchant_name        = $this->get_option( 'merchant_name' );
+			$this->merchant_address1    = $this->get_option( 'merchant_address1' );
+			$this->merchant_address2    = $this->get_option( 'merchant_address2' );
 			$this->checkout_interaction = $this->get_option( 'checkout_interaction' );
 
 			// Actions
@@ -107,87 +107,87 @@ function woo_mpgs_init() {
 
 			$this->form_fields = apply_filters( 'woo_mpgs_form_fields', array(
 				'enabled' => array(
-					'title'		=> __( 'Enable/Disable', 'woo-mpgs' ),
-					'type'		=> 'checkbox',
-					'label'		=> __( 'Enable MPGS Payment Module.', 'woo-mpgs' ),
-					'default'	=> 'yes',
+					'title'         => __( 'Enable/Disable', 'woo-mpgs' ),
+					'type'          => 'checkbox',
+					'label'         => __( 'Enable MPGS Payment Module.', 'woo-mpgs' ),
+					'default'       => 'yes',
 				),
 				'title' => array(
-					'title'		  => __( 'Title', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'description' => __( 'This controls the title for the payment method the customer sees during checkout.', 'woo-mpgs' ),
-					'default'	  => __( 'Credit Card', 'woo-mpgs' ),
-					'desc_tip'	  => true
+					'title'         => __( 'Title', 'woo-mpgs' ),
+					'type'          => 'text',
+					'description'   => __( 'This controls the title for the payment method the customer sees during checkout.', 'woo-mpgs' ),
+					'default'       => __( 'Credit Card', 'woo-mpgs' ),
+					'desc_tip'      => true
 				),
 				'description' => array(
-					'title'		  => __( 'Description', 'woo-mpgs' ),
-					'type'		  => 'textarea',
-					'description' => __( 'Payment method description that the customer will see on your checkout.', 'woo-mpgs' ),
-					'default'	  => __( 'Pay securely by Credit/Debit Card.', 'woo-mpgs' ),
-					'desc_tip'	  => true
+					'title'         => __( 'Description', 'woo-mpgs' ),
+					'type'          => 'textarea',
+					'description'   => __( 'Payment method description that the customer will see on your checkout.', 'woo-mpgs' ),
+					'default'       => __( 'Pay securely by Credit/Debit Card.', 'woo-mpgs' ),
+					'desc_tip'      => true
 				),
 				'mpgs_icon' => array(
-					'title'		  => __( 'Icon', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'css'		  => 'width:100%',
-					'description' => __( 'Enter an image URL to change the icon.', 'woo-mpgs' ),
-					'desc_tip'	  => true
+					'title'         => __( 'Icon', 'woo-mpgs' ),
+					'type'          => 'text',
+					'css'           => 'width:100%',
+					'description'   => __( 'Enter an image URL to change the icon.', 'woo-mpgs' ),
+					'desc_tip'      => true
 				),
 				'service_host' => array(
-					'title'		  => __( 'MPGS URL', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'css'		  => 'width:100%',
-					'description' => __( 'MPGS URL, given by the Bank. This is an example: https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
-					'placeholder' => __( 'MPGS URL', 'woo-mpgs' ),
-					'default'	  => __( 'https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
-					'desc_tip'	  => true
+					'title'         => __( 'MPGS URL', 'woo-mpgs' ),
+					'type'          => 'text',
+					'css'           => 'width:100%',
+					'description'   => __( 'MPGS URL, given by the Bank. This is an example: https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
+					'placeholder'   => __( 'MPGS URL', 'woo-mpgs' ),
+					'default'       => __( 'https://ap-gateway.mastercard.com/', 'woo-mpgs' ),
+					'desc_tip'      => true
 				),
 				'api_version' => array(
-					'title'		  => __( 'API Version', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'description' => __( 'API version, given by the Bank', 'woo-mpgs' ),
-					'placeholder' => __( 'MPGS API Version (49 is recommended)', 'woo-mpgs' ),
-					'default'	  => 49,
-					'desc_tip'	  => true
+					'title'         => __( 'API Version', 'woo-mpgs' ),
+					'type'          => 'text',
+					'description'   => __( 'API version, given by the Bank', 'woo-mpgs' ),
+					'placeholder'   => __( 'MPGS API Version (49 is recommended)', 'woo-mpgs' ),
+					'default'       => 49,
+					'desc_tip'      => true
 				),
 				'merchant_id' => array(
-					'title'		  => __( 'Merchant ID', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'description' => __( 'Merchant ID, given by the Bank', 'woo-mpgs' ),
-					'placeholder' => __( 'Merchant ID', 'woocommerce' ),
-					'desc_tip'	  => true
+					'title'         => __( 'Merchant ID', 'woo-mpgs' ),
+					'type'          => 'text',
+					'description'   => __( 'Merchant ID, given by the Bank', 'woo-mpgs' ),
+					'placeholder'   => __( 'Merchant ID', 'woocommerce' ),
+					'desc_tip'      => true
 				),
 				'authentication_password' => array(
-					'title'		  => __( 'Authentication Password', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'description' => __( 'Authentication Password, given by the Bank', 'woo-mpgs' ),
-					'placeholder' => __( 'Authentication Password', 'woo-mpgs' ),
-					'desc_tip'	  => true
+					'title'         => __( 'Authentication Password', 'woo-mpgs' ),
+					'type'          => 'text',
+					'description'   => __( 'Authentication Password, given by the Bank', 'woo-mpgs' ),
+					'placeholder'   => __( 'Authentication Password', 'woo-mpgs' ),
+					'desc_tip'      => true
 				),
 				'merchant_name' => array(
-					'title'		  => __( 'Name', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'description' => __( 'Merchant name that will appear in the gateway page or popup', 'woo-mpgs' ),
-					'desc_tip'	  => true
+					'title'         => __( 'Name', 'woo-mpgs' ),
+					'type'          => 'text',
+					'description'   => __( 'Merchant name that will appear in the gateway page or popup', 'woo-mpgs' ),
+					'desc_tip'      => true
 				),
 				'merchant_address1' => array(
-					'title'		  => __( 'Merchant Address Line 1', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'description' => __( 'Merchant Address Line 1 that will appear in the gateway page or popup', 'woo-mpgs' ),
-					'desc_tip'	  => true
+					'title'         => __( 'Merchant Address Line 1', 'woo-mpgs' ),
+					'type'          => 'text',
+					'description'   => __( 'Merchant Address Line 1 that will appear in the gateway page or popup', 'woo-mpgs' ),
+					'desc_tip'      => true
 				),
 				'merchant_address2' => array(
-					'title'		  => __( 'Merchant Address Line 2', 'woo-mpgs' ),
-					'type'		  => 'text',
-					'description' => __( 'Merchant Address Line 2 that will appear in the gateway page or popup', 'woo-mpgs' ),
-					'desc_tip'	  => true
+					'title'         => __( 'Merchant Address Line 2', 'woo-mpgs' ),
+					'type'          => 'text',
+					'description'   => __( 'Merchant Address Line 2 that will appear in the gateway page or popup', 'woo-mpgs' ),
+					'desc_tip'      => true
 				),
 				'checkout_interaction' => array(
-					'title'		  => __( 'Checkout Interaction', 'woo-mpgs' ),
-					'type'		  => 'select',
-					'description' => __( 'Choose checkout interaction type', 'woo-mpgs' ),
-					'options'	  => array( 'lightbox' => 'Lightbox', 'paymentpage' => 'Payment Page' ),
-					'default'	  => '1',
+					'title'         => __( 'Checkout Interaction', 'woo-mpgs' ),
+					'type'          => 'select',
+					'description'   => __( 'Choose checkout interaction type', 'woo-mpgs' ),
+					'options'       => array( 'lightbox' => 'Lightbox', 'paymentpage' => 'Payment Page' ),
+					'default'       => '1',
 				)
 			) );
 		}
@@ -203,12 +203,12 @@ function woo_mpgs_init() {
 
 			// Prepare session request
 			$session_request = array();
-			$session_request['apiOperation']		= "CREATE_CHECKOUT_SESSION";
-			$session_request['userId']				= $order->get_user_id();
-			$session_request['order']['id']			= $order_id;
-			$session_request['order']['amount']		= $order->get_total();
-			$session_request['order']['currency']	= get_woocommerce_currency();
-			$session_request['interaction']['returnUrl'] = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
+			$session_request['apiOperation']                = "CREATE_CHECKOUT_SESSION";
+			$session_request['userId']                      = $order->get_user_id();
+			$session_request['order']['id']                 = $order_id;
+			$session_request['order']['amount']             = $order->get_total();
+			$session_request['order']['currency']           = get_woocommerce_currency();
+			$session_request['interaction']['returnUrl']    = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
 
 			$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/session";
 
@@ -239,7 +239,7 @@ function woo_mpgs_init() {
 
 				$pay_url = add_query_arg( array(
 					'sessionId'     => $response['session']['id'],
-					'key'		    => $order->get_order_key(),
+					'key'           => $order->get_order_key(),
 					'pay_for_order' => false,
 				), $order->get_checkout_payment_url() );
 
@@ -284,28 +284,28 @@ function woo_mpgs_init() {
 							amount: "<?php echo $order->get_total(); ?>",
 							currency: "<?php echo get_woocommerce_currency(); ?>",
 							description: "<?php printf( __( 'Pay for order #%d via %s', 'woo-mpgs' ), $order_id, $this->title ); ?>",
-							customerOrderDate:"<?php echo date('Y-m-d'); ?>",
-							customerReference:"<?php echo $order->get_user_id(); ?>",
-							reference:"<?php echo $order_id; ?>"
+							customerOrderDate: "<?php echo date('Y-m-d'); ?>",
+							customerReference: "<?php echo $order->get_user_id(); ?>",
+							reference: "<?php echo $order_id; ?>"
 						},
 						session: {
 							id: "<?php echo esc_js( $_REQUEST['sessionId'] ); ?>"
 						},
-						billing:{
+						billing: {
 							address: {
-								city:"<?php echo $order->get_billing_city(); ?>",
-								country:"<?php echo $this->kia_convert_country_code( $order->get_billing_country() ); ?>",
-								postcodeZip:"<?php echo $order->get_billing_postcode(); ?>",
-								stateProvince:"<?php echo $order->get_billing_state(); ?>",
-								street:"<?php echo $order->get_billing_address_1(); ?>",
-								street2:"<?php echo $order->get_billing_address_2(); ?>"
+								city: "<?php echo $order->get_billing_city(); ?>",
+								country: "<?php echo $this->kia_convert_country_code( $order->get_billing_country() ); ?>",
+								postcodeZip: "<?php echo $order->get_billing_postcode(); ?>",
+								stateProvince: "<?php echo $order->get_billing_state(); ?>",
+								street: "<?php echo $order->get_billing_address_1(); ?>",
+								street2: "<?php echo $order->get_billing_address_2(); ?>"
 							}
 						},
-						customer:{
-							email:"<?php echo $order->get_billing_email(); ?>",
-							firstName:"<?php echo $order->get_billing_first_name(); ?>",
-							lastName:"<?php echo $order->get_billing_last_name(); ?>",
-							phone:"<?php echo $order->get_billing_phone(); ?>"
+						customer: {
+							email: "<?php echo $order->get_billing_email(); ?>",
+							firstName: "<?php echo $order->get_billing_first_name(); ?>",
+							lastName: "<?php echo $order->get_billing_last_name(); ?>",
+							phone: "<?php echo $order->get_billing_phone(); ?>"
 						},
 						interaction: {
 							merchant: {
@@ -317,9 +317,9 @@ function woo_mpgs_init() {
 							},
 							displayControl: {
 								billingAddress  : "HIDE",
-								customerEmail	: "HIDE",
-								orderSummary	: "HIDE",
-								shipping		: "HIDE"
+								customerEmail   : "HIDE",
+								orderSummary    : "HIDE",
+								shipping        : "HIDE"
 							}
 						}
 					});
