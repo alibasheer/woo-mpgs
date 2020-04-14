@@ -1,0 +1,223 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce MPGS\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-14 20:34+0000\n"
+"PO-Revision-Date: 2020-02-14 20:43+0000\n"
+"Last-Translator: Manucurist <bnbtunisia@gmail.com>\n"
+"Language-Team: Français\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.1; wp-5.2.5"
+
+#: woo-mpgs.php:27
+msgid "Configure"
+msgstr "Configurer"
+
+#: woo-mpgs.php:63
+#, php-format
+msgid ""
+"MPGS requires WooCommerce to be installed and active. You can download %s "
+"here."
+msgstr ""
+"Le MPGS exige que WooCommerce soit installé et actif. Vous pouvez "
+"télécharger %s ici."
+
+#: woo-mpgs.php:78
+msgid "MPGS"
+msgstr "MPGS"
+
+#: woo-mpgs.php:79
+msgid "Allows MasterCard Payment Gateway Services (MPGS)"
+msgstr "Autorise les services de passerelle de paiement MasterCard (MPGS)"
+
+#: woo-mpgs.php:110
+msgid "Enable/Disable"
+msgstr "Activer/Désactiver"
+
+#: woo-mpgs.php:112
+msgid "Enable MPGS Payment Module."
+msgstr "Activer le module de paiement MPGS."
+
+#: woo-mpgs.php:116
+msgid "Title"
+msgstr "Titre"
+
+#: woo-mpgs.php:118
+msgid ""
+"This controls the title for the payment method the customer sees during "
+"checkout."
+msgstr ""
+"Il contrôle le titre du mode de paiement que le client voit lors de la "
+"commande."
+
+#: woo-mpgs.php:119
+msgid "Credit Card"
+msgstr "Carte de crédit"
+
+#: woo-mpgs.php:123
+msgid "Description"
+msgstr "Description"
+
+#: woo-mpgs.php:125
+msgid "Payment method description that the customer will see on your checkout."
+msgstr "Description du mode de paiement"
+
+#: woo-mpgs.php:126
+msgid "Pay securely by Credit/Debit Card."
+msgstr "Payez en toute sécurité par carte de crédit/débit."
+
+#: woo-mpgs.php:130
+msgid "Icon"
+msgstr "Icône"
+
+#: woo-mpgs.php:133
+msgid "Enter an image URL to change the icon."
+msgstr "Entrez une URL d'image pour changer l'icône."
+
+#: woo-mpgs.php:137 woo-mpgs.php:141
+msgid "MPGS URL"
+msgstr "URL MPGS"
+
+#: woo-mpgs.php:140
+msgid ""
+"MPGS URL, given by the Bank. This is an example: https://ap-gateway."
+"mastercard.com/"
+msgstr ""
+"URL MPGS, donnée par la Banque. Voici un exemple : https://ap-gateway."
+"mastercard.com/"
+
+#: woo-mpgs.php:142
+msgid "https://ap-gateway.mastercard.com/"
+msgstr "https://ap-gateway.mastercard.com/"
+
+#: woo-mpgs.php:146
+msgid "API Version"
+msgstr "Version de l'API"
+
+#: woo-mpgs.php:148
+msgid "API version, given by the Bank"
+msgstr "Version API, donnée par la Banque"
+
+#: woo-mpgs.php:149
+msgid "MPGS API Version (49 is recommended)"
+msgstr "Version API du MPGS (49 est recommandé)"
+
+#: woo-mpgs.php:154
+msgid "Merchant ID"
+msgstr "Identification du commerçant"
+
+#: woo-mpgs.php:156
+msgid "Merchant ID, given by the Bank"
+msgstr "Identification du commerçant, délivrée par la banque"
+
+#: woo-mpgs.php:161 woo-mpgs.php:164
+msgid "Authentication Password"
+msgstr "Mot de passe d'authentification"
+
+#: woo-mpgs.php:163
+msgid "Authentication Password, given by the Bank"
+msgstr "Mot de passe d'authentification, donné par la Banque"
+
+#: woo-mpgs.php:168
+msgid "Name"
+msgstr "Nom"
+
+#: woo-mpgs.php:170
+msgid "Merchant name that will appear in the gateway page or popup"
+msgstr ""
+"Nom du commerçant qui apparaîtra dans la page d'accueil ou la fenêtre "
+"contextuelle"
+
+#: woo-mpgs.php:174
+msgid "Merchant Address Line 1"
+msgstr "Adresse du commerçant ligne 1"
+
+#: woo-mpgs.php:176
+msgid "Merchant Address Line 1 that will appear in the gateway page or popup"
+msgstr ""
+"Adresse du commerçant ligne 1 qui apparaîtra dans la page ou la fenêtre "
+"contextuelle de la passerelle"
+
+#: woo-mpgs.php:180
+msgid "Merchant Address Line 2"
+msgstr "Adresse du commerçant ligne 2"
+
+#: woo-mpgs.php:182
+msgid "Merchant Address Line 2 that will appear in the gateway page or popup"
+msgstr ""
+"Adresse du commerçant ligne 2 qui apparaîtra dans la page ou la fenêtre "
+"contextuelle de la passerelle"
+
+#: woo-mpgs.php:186
+msgid "Checkout Interaction"
+msgstr "Interaction à la commande"
+
+#: woo-mpgs.php:188
+msgid "Choose checkout interaction type"
+msgstr "Choisissez le type d'interaction à la phase de paiement de commande"
+
+#: woo-mpgs.php:225
+msgid ""
+"Payment error: Failed to communicate with MPGS server. Make sure MPGS URL "
+"looks like `https://example.mastercard.com/` by removing "
+"`checkout/version/*/checkout.js` and end the URL with a slash \"/\"."
+msgstr ""
+"Erreur de paiement : Échec de la communication avec le serveur MPGS. Assurez-"
+"vous que l'URL de MPGS ressemble à `https://example.mastercard.com/` en "
+"supprimant `checkout/version/*/checkout.js` et en terminant l'URL par une "
+"barre oblique \"/\"."
+
+#: woo-mpgs.php:252
+msgid "Payment error: "
+msgstr "Erreur de paiement : "
+
+#: woo-mpgs.php:286
+#, php-format
+msgid "Pay for order #%d via %s"
+msgstr "Payer pour la commande #%d via %s"
+
+#: woo-mpgs.php:327
+msgid "Loading payment method, please wait. This may take up to 30 seconds."
+msgstr ""
+"Chargement du mode de paiement, veuillez patienter. Cela peut prendre "
+"jusqu'à 30 secondes."
+
+#: woo-mpgs.php:333
+msgid "Payment error: Session not found."
+msgstr "Erreur de paiement : Session non trouvée."
+
+#: woo-mpgs.php:368
+#, php-format
+msgid "MPGS Payment completed with Transaction Receipt: %s."
+msgstr "Paiement MPGS complété avec le reçu de la transaction: %s."
+
+#: woo-mpgs.php:374 woo-mpgs.php:375
+msgid "Payment error: Something went wrong."
+msgstr "Erreur de paiement : Quelque chose s'est mal passé."
+
+#: woo-mpgs.php:379 woo-mpgs.php:380
+msgid "Payment error: Invalid transaction."
+msgstr "Erreur de paiement : Transaction non valable."
+
+#. Name of the plugin
+msgid "WooCommerce MPGS"
+msgstr "WooCommerce MPGS"
+
+#. Description of the plugin
+msgid "Extends WooCommerce with MasterCard Payment Gateway Services (MPGS)."
+msgstr ""
+"Extension de WooCommerce avec les services de passerelle de paiement de "
+"MasterCard (MPGS)."
+
+#. Author of the plugin
+msgid "Ali Basheer"
+msgstr "Ali Basheer"
+
+#. Author URI of the plugin
+msgid "https://alibasheer.com"
+msgstr "https://alibasheer.com"
