@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce MPGS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-14 20:34+0000\n"
+"POT-Creation-Date: 2020-04-14 21:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,192 +13,192 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.1; wp-5.2.5"
+"X-Loco-Version: 2.3.2; wp-5.4"
 
-#: woo-mpgs.php:27
-msgid "Configure"
+#. Author of the plugin
+msgid "Ali Basheer"
 msgstr ""
 
-#: woo-mpgs.php:63
-#, php-format
-msgid ""
-"MPGS requires WooCommerce to be installed and active. You can download %s "
-"here."
-msgstr ""
-
-#: woo-mpgs.php:78
-msgid "MPGS"
-msgstr ""
-
-#: woo-mpgs.php:79
+#: woo-mpgs.php:87
 msgid "Allows MasterCard Payment Gateway Services (MPGS)"
 msgstr ""
 
-#: woo-mpgs.php:110
-msgid "Enable/Disable"
-msgstr ""
-
-#: woo-mpgs.php:112
-msgid "Enable MPGS Payment Module."
-msgstr ""
-
-#: woo-mpgs.php:116
-msgid "Title"
-msgstr ""
-
-#: woo-mpgs.php:118
-msgid ""
-"This controls the title for the payment method the customer sees during "
-"checkout."
-msgstr ""
-
-#: woo-mpgs.php:119
-msgid "Credit Card"
-msgstr ""
-
-#: woo-mpgs.php:123
-msgid "Description"
-msgstr ""
-
-#: woo-mpgs.php:125
-msgid "Payment method description that the customer will see on your checkout."
-msgstr ""
-
-#: woo-mpgs.php:126
-msgid "Pay securely by Credit/Debit Card."
-msgstr ""
-
-#: woo-mpgs.php:130
-msgid "Icon"
-msgstr ""
-
-#: woo-mpgs.php:133
-msgid "Enter an image URL to change the icon."
-msgstr ""
-
-#: woo-mpgs.php:137 woo-mpgs.php:141
-msgid "MPGS URL"
-msgstr ""
-
-#: woo-mpgs.php:140
-msgid ""
-"MPGS URL, given by the Bank. This is an example: https://ap-gateway."
-"mastercard.com/"
-msgstr ""
-
-#: woo-mpgs.php:142
-msgid "https://ap-gateway.mastercard.com/"
-msgstr ""
-
-#: woo-mpgs.php:146
+#: woo-mpgs.php:155
 msgid "API Version"
 msgstr ""
 
-#: woo-mpgs.php:148
+#: woo-mpgs.php:157
 msgid "API version, given by the Bank"
 msgstr ""
 
-#: woo-mpgs.php:149
-msgid "MPGS API Version (49 is recommended)"
-msgstr ""
-
-#: woo-mpgs.php:154
-msgid "Merchant ID"
-msgstr ""
-
-#: woo-mpgs.php:156
-msgid "Merchant ID, given by the Bank"
-msgstr ""
-
-#: woo-mpgs.php:161 woo-mpgs.php:164
+#: woo-mpgs.php:170 woo-mpgs.php:173
 msgid "Authentication Password"
 msgstr ""
 
-#: woo-mpgs.php:163
+#: woo-mpgs.php:172
 msgid "Authentication Password, given by the Bank"
 msgstr ""
 
-#: woo-mpgs.php:168
-msgid "Name"
-msgstr ""
-
-#: woo-mpgs.php:170
-msgid "Merchant name that will appear in the gateway page or popup"
-msgstr ""
-
-#: woo-mpgs.php:174
-msgid "Merchant Address Line 1"
-msgstr ""
-
-#: woo-mpgs.php:176
-msgid "Merchant Address Line 1 that will appear in the gateway page or popup"
-msgstr ""
-
-#: woo-mpgs.php:180
-msgid "Merchant Address Line 2"
-msgstr ""
-
-#: woo-mpgs.php:182
-msgid "Merchant Address Line 2 that will appear in the gateway page or popup"
-msgstr ""
-
-#: woo-mpgs.php:186
+#: woo-mpgs.php:195
 msgid "Checkout Interaction"
 msgstr ""
 
-#: woo-mpgs.php:188
+#: woo-mpgs.php:197
 msgid "Choose checkout interaction type"
 msgstr ""
 
-#: woo-mpgs.php:225
-msgid ""
-"Payment error: Failed to communicate with MPGS server. Make sure MPGS URL "
-"looks like `https://example.mastercard.com/` by removing "
-"`checkout/version/*/checkout.js` and end the URL with a slash \"/\"."
+#: woo-mpgs.php:35
+msgid "Configure"
 msgstr ""
 
-#: woo-mpgs.php:252
-msgid "Payment error: "
+#: woo-mpgs.php:128
+msgid "Credit Card"
 msgstr ""
 
-#: woo-mpgs.php:286
-#, php-format
-msgid "Pay for order #%d via %s"
+#: woo-mpgs.php:132
+msgid "Description"
 msgstr ""
 
-#: woo-mpgs.php:327
-msgid "Loading payment method, please wait. This may take up to 30 seconds."
+#: woo-mpgs.php:121
+msgid "Enable MPGS Payment Module."
 msgstr ""
 
-#: woo-mpgs.php:333
-msgid "Payment error: Session not found."
+#: woo-mpgs.php:119
+msgid "Enable/Disable"
 msgstr ""
 
-#: woo-mpgs.php:368
-#, php-format
-msgid "MPGS Payment completed with Transaction Receipt: %s."
-msgstr ""
-
-#: woo-mpgs.php:374 woo-mpgs.php:375
-msgid "Payment error: Something went wrong."
-msgstr ""
-
-#: woo-mpgs.php:379 woo-mpgs.php:380
-msgid "Payment error: Invalid transaction."
-msgstr ""
-
-#. Name of the plugin
-msgid "WooCommerce MPGS"
+#: woo-mpgs.php:142
+msgid "Enter an image URL to change the icon."
 msgstr ""
 
 #. Description of the plugin
 msgid "Extends WooCommerce with MasterCard Payment Gateway Services (MPGS)."
 msgstr ""
 
-#. Author of the plugin
-msgid "Ali Basheer"
-msgstr ""
-
 #. Author URI of the plugin
 msgid "https://alibasheer.com"
+msgstr ""
+
+#: woo-mpgs.php:151
+msgid "https://ap-gateway.mastercard.com/"
+msgstr ""
+
+#: woo-mpgs.php:139
+msgid "Icon"
+msgstr ""
+
+#: woo-mpgs.php:332
+msgid "Loading payment method, please wait. This may take up to 30 seconds."
+msgstr ""
+
+#: woo-mpgs.php:183
+msgid "Merchant Address Line 1"
+msgstr ""
+
+#: woo-mpgs.php:185
+msgid "Merchant Address Line 1 that will appear in the gateway page or popup"
+msgstr ""
+
+#: woo-mpgs.php:189
+msgid "Merchant Address Line 2"
+msgstr ""
+
+#: woo-mpgs.php:191
+msgid "Merchant Address Line 2 that will appear in the gateway page or popup"
+msgstr ""
+
+#: woo-mpgs.php:163
+msgid "Merchant ID"
+msgstr ""
+
+#: woo-mpgs.php:165
+msgid "Merchant ID, given by the Bank"
+msgstr ""
+
+#: woo-mpgs.php:179
+msgid "Merchant name that will appear in the gateway page or popup"
+msgstr ""
+
+#: woo-mpgs.php:86
+msgid "MPGS"
+msgstr ""
+
+#: woo-mpgs.php:158
+msgid "MPGS API Version (49 is recommended)"
+msgstr ""
+
+#: woo-mpgs.php:373
+#, php-format
+msgid "MPGS Payment completed with Transaction Receipt: %s."
+msgstr ""
+
+#: woo-mpgs.php:71
+#, php-format
+msgid ""
+"MPGS requires WooCommerce to be installed and active. You can download %s "
+"here."
+msgstr ""
+
+#: woo-mpgs.php:146 woo-mpgs.php:150
+msgid "MPGS URL"
+msgstr ""
+
+#: woo-mpgs.php:149
+msgid ""
+"MPGS URL, given by the Bank. This is an example: https://ap-gateway."
+"mastercard.com/"
+msgstr ""
+
+#: woo-mpgs.php:177
+msgid "Name"
+msgstr ""
+
+#: woo-mpgs.php:289
+#, php-format
+msgid "Pay for order #%d via %s"
+msgstr ""
+
+#: woo-mpgs.php:135
+msgid "Pay securely by Credit/Debit Card."
+msgstr ""
+
+#: woo-mpgs.php:261
+msgid "Payment error: "
+msgstr ""
+
+#: woo-mpgs.php:234
+msgid ""
+"Payment error: Failed to communicate with MPGS server. Make sure MPGS URL "
+"looks like `https://example.mastercard.com/` by removing "
+"`checkout/version/*/checkout.js` and end the URL with a slash \"/\"."
+msgstr ""
+
+#: woo-mpgs.php:384 woo-mpgs.php:385
+msgid "Payment error: Invalid transaction."
+msgstr ""
+
+#: woo-mpgs.php:338
+msgid "Payment error: Session not found."
+msgstr ""
+
+#: woo-mpgs.php:379 woo-mpgs.php:380
+msgid "Payment error: Something went wrong."
+msgstr ""
+
+#: woo-mpgs.php:134
+msgid "Payment method description that the customer will see on your checkout."
+msgstr ""
+
+#: woo-mpgs.php:127
+msgid ""
+"This controls the title for the payment method the customer sees during "
+"checkout."
+msgstr ""
+
+#: woo-mpgs.php:125
+msgid "Title"
+msgstr ""
+
+#. Name of the plugin
+msgid "WooCommerce MPGS"
 msgstr ""
