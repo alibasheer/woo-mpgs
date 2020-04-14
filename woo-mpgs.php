@@ -16,6 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Loading text domain
+ */
+function load_woo_mpgs_textdomain() {
+	load_plugin_textdomain( 'woo-mpgs', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'load_woo_mpgs_textdomain' );
+
+/**
  * Adds plugin page links
  *
  * @since 1.0.0
