@@ -296,12 +296,14 @@ function woo_mpgs_init() {
 								street2: "<?php echo $order->get_billing_address_2(); ?>"
 							}
 						},
+						<?php if( ! empty( $order->get_billing_email() ) && ! empty( $order->get_billing_first_name() ) && ! empty( $order->get_billing_last_name() ) && ! empty( $order->get_billing_phone() ) ) { ?>
 						customer: {
 							email: "<?php echo $order->get_billing_email(); ?>",
 							firstName: "<?php echo $order->get_billing_first_name(); ?>",
 							lastName: "<?php echo $order->get_billing_last_name(); ?>",
 							phone: "<?php echo $order->get_billing_phone(); ?>"
 						},
+						<?php } ?>
 						interaction: {
 							merchant: {
 								name: "<?php echo $this->merchant_name; ?>",
