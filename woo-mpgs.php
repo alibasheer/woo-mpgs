@@ -320,7 +320,7 @@ function woo_mpgs_init() {
                             operation: "PURCHASE",
                             <?php } ?>
                             merchant: {
-								name: "<?php echo $this->merchant_name; ?>",
+								name: "<?php echo ( ! empty( $this->merchant_name ) ) ? $this->merchant_name : 'MPGS'; ?>",
 								address: {
 									line1: "<?php echo $this->merchant_address1; ?>",
 									line2: "<?php echo $this->merchant_address2; ?>"
