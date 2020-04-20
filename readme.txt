@@ -3,8 +3,8 @@ Contributors: alibasheer
 Donate link: http://alibasheer.com
 Tags: woocommerce, mastercard, mpgs, payment, gateway
 Requires at least: 4.0
-Tested up to: 5.2
-Stable tag: 1.2.0
+Tested up to: 5.4
+Stable tag: 1.3.0
 Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,7 +35,7 @@ It is the URL that is needed to connect with the Mastercard gateway. This link s
 
 = What is the recommended API Version to use? =
 
-We recommend using API version 49 as it is the most tested version with our plugin
+We are supporting the latest version of the API, However, API version 49 is the most tested version with our plugin
 
 == Screenshots ==
 
@@ -44,6 +44,11 @@ We recommend using API version 49 as it is the most tested version with our plug
 3. Redirect to Payment page
 
 == Changelog ==
+
+= 1.3.0 =
+* Support latest API version 55
+* Allow admin orders even without customer info
+* Translations support
 
 = 1.2.0 =
 * Fix bug with some American Express cards related to handling JSON response
@@ -64,6 +69,9 @@ We recommend using API version 49 as it is the most tested version with our plug
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Support to latest API version 55 and some other enhancements, check change log for more details. If you faced any issue, contact me at alibasheer@hotmail.com
 
 = 1.2.0 =
 This version comes with lots of enhancements, check change log for more details. If you faced any issue, contact me at alibasheer@hotmail.com
