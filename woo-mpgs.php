@@ -218,6 +218,7 @@ function woo_mpgs_init() {
 			$session_request['order']['amount']             = $order->get_total();
 			$session_request['order']['currency']           = get_woocommerce_currency();
 			$session_request['interaction']['returnUrl']    = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
+			$session_request['interaction']['operation']    = "PURCHASE";
 
 			$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/session";
 
@@ -313,7 +314,8 @@ function woo_mpgs_init() {
 						},
 						<?php } ?>
 						interaction: {
-							merchant: {
+                            operation: "PURCHASE",
+                            merchant: {
 								name: "<?php echo $this->merchant_name; ?>",
 								address: {
 									line1: "<?php echo $this->merchant_address1; ?>",
