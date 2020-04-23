@@ -49,6 +49,7 @@ We are supporting the latest version of the API, However, API version 49 is the 
 * Support latest API version 55
 * Allow admin orders even without customer info
 * Translations support
+* Access order properties through get functions instead of the deprecated direct access
 
 = 1.2.0 =
 * Fix bug with some American Express cards related to handling JSON response
