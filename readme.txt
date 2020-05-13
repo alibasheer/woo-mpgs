@@ -37,6 +37,10 @@ It is the URL that is needed to connect with the Mastercard gateway. This link s
 
 We are supporting the latest version of the API, However, API version 49 is the most tested version with our plugin
 
+= I am getting 'invalid request' error =
+
+Make sure that your Merchant Account currency is the same as your website currency.
+
 == Screenshots ==
 
 1. WooCommerce MPGS setting page
