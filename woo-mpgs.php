@@ -277,12 +277,10 @@ function woo_mpgs_init() {
 				$order = wc_get_order( $order_id );
 				?>
 				<script type="text/javascript">
-
 					function errorCallback( error ) {
 						alert( "Error: " + JSON.stringify( error ) );
 						window.location.href = "<?php echo wc_get_checkout_url(); ?>";
 					}
-
 					Checkout.configure({
 						merchant: "<?php echo $this->merchant_id; ?>",
 						order: {
