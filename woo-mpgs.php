@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WooCommerce MPGS
  * Description: Extends WooCommerce with MasterCard Payment Gateway Services (MPGS).
- * Version: 1.3.0
+ * Version: 1.3.1
  * Text Domain: woo-mpgs
  * Domain Path: /languages
  * Author: Ali Basheer
@@ -295,6 +295,9 @@ function woo_mpgs_init() {
 						session: {
 							id: "<?php echo esc_js( $_REQUEST['sessionId'] ); ?>"
 						},
+                        transaction: {
+                            reference: "TRF" + "<?php echo $order_id; ?>"
+                        },
 						billing: {
 							address: {
 								city: "<?php echo $order->get_billing_city(); ?>",
