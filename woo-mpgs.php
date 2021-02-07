@@ -222,6 +222,16 @@ function woo_mpgs_init() {
 				$session_request['interaction']['operation']    = "PURCHASE";
             }
 
+			/**
+			 * Filters the session request.
+			 *
+			 * @since 1.3.1
+			 *
+			 * @param array   $session_request The array that will be sent with the request.
+			 * @param WC_ORDER $order  Order object.
+			 */
+			$session_request = apply_filters( 'woo_mpgs_session_request', $session_request, $order );
+
 			$request_url = $this->service_host . "api/rest/version/" . $this->api_version . "/merchant/" . $this->merchant_id . "/session";
 
 			// Request the session
