@@ -3,8 +3,8 @@ Contributors: alibasheer
 Donate link: http://alibasheer.com
 Tags: woocommerce, mastercard, mpgs, payment, gateway
 Requires at least: 4.0
-Tested up to: 5.4
-Stable tag: 1.3.0
+Tested up to: 5.7
+Stable tag: 1.4.0
 Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,6 +49,10 @@ Make sure that your Merchant Account currency is the same as your website curren
 
 == Changelog ==
 
+= 1.4.0 =
+* Added filter to allow customization on the session request
+* Added transaction reference to support some special MID setups
+
 = 1.3.0 =
 * Support latest API version 55
 * Allow admin orders even without customer info
@@ -74,6 +78,9 @@ Make sure that your Merchant Account currency is the same as your website curren
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+Enhanced compatibility, check change log for more details. If you faced any issue, contact me at alibasheer@hotmail.com
 
 = 1.3.0 =
 Support to latest API version 55 and some other enhancements, check change log for more details. If you faced any issue, contact me at alibasheer@hotmail.com
