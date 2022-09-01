@@ -155,7 +155,7 @@ function woo_mpgs_init() {
 					'title'         => __( 'API Version', 'woo-mpgs' ),
 					'type'          => 'text',
 					'description'   => __( 'API version, given by the Bank', 'woo-mpgs' ),
-					'placeholder'   => __( 'MPGS API Version (49 is recommended)', 'woo-mpgs' ),
+					'placeholder'   => __( 'MPGS API Version (66 is recommended)', 'woo-mpgs' ),
 					'default'       => 49,
 					'desc_tip'      => true
 				),
@@ -194,7 +194,7 @@ function woo_mpgs_init() {
 				'checkout_interaction' => array(
 					'title'         => __( 'Checkout Interaction', 'woo-mpgs' ),
 					'type'          => 'select',
-					'description'   => __( 'Choose checkout interaction type', 'woo-mpgs' ),
+					'description'   => __( 'Choose checkout interaction type. Please note that Lightbox option is not supported in API version 63 or above.', 'woo-mpgs' ),
 					'options'       => array( 'lightbox' => 'Lightbox', 'paymentpage' => 'Payment Page' ),
 					'default'       => '1',
 				)
@@ -212,14 +212,29 @@ function woo_mpgs_init() {
 
 			// Prepare session request
 			$session_request = array();
-			$session_request['apiOperation']                = "CREATE_CHECKOUT_SESSION";
-			$session_request['userId']                      = $order->get_user_id();
-			$session_request['order']['id']                 = $order_id;
-			$session_request['order']['amount']             = $order->get_total();
-			$session_request['order']['currency']           = get_woocommerce_currency();
-			$session_request['interaction']['returnUrl']    = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
-			if( (int) $this->api_version >= 52 ) {
-				$session_request['interaction']['operation']    = "PURCHASE";
+
+            if((int) $this->api_version >= 63) {
+                $session_request['apiOperation']  = "INITIATE_CHECKOUT";
+                $session_request['interaction']['operation']    = "PURCHASE";
+                $session_request['initiator']['userId']     = $order->get_user_id();
+                $session_request['order']['id']                 = $order_id;
+                $session_request['order']['amount']             = $order->get_total();
+                $session_request['order']['currency']           = get_woocommerce_currency();
+                $session_request['interaction']['returnUrl']    = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
+            } else {
+                $session_request['apiOperation']                = "CREATE_CHECKOUT_SESSION";
+                if((int) $this->api_version >= 62) {
+                    $session_request['initiator']['userId']     = $order->get_user_id();
+                } else {
+                    $session_request['userId']                  = $order->get_user_id();
+                }
+                $session_request['order']['id']                 = $order_id;
+                $session_request['order']['amount']             = $order->get_total();
+                $session_request['order']['currency']           = get_woocommerce_currency();
+                $session_request['interaction']['returnUrl']    = add_query_arg( array( 'order_id' => $order_id, 'wc-api' => 'woo_mpgs' ), home_url('/') );
+                if( (int) $this->api_version >= 52 ) {
+                    $session_request['interaction']['operation']    = "PURCHASE";
+                }
             }
 
 			/**
@@ -291,64 +306,121 @@ function woo_mpgs_init() {
 						alert( "Error: " + JSON.stringify( error ) );
 						window.location.href = "<?php echo wc_get_checkout_url(); ?>";
 					}
-					Checkout.configure({
-						merchant: "<?php echo $this->merchant_id; ?>",
-						order: {
-							id: "<?php echo $order_id; ?>",
-							amount: "<?php echo $order->get_total(); ?>",
-							currency: "<?php echo get_woocommerce_currency(); ?>",
-							description: "<?php printf( __( 'Pay for order #%d via %s', 'woo-mpgs' ), $order_id, $this->title ); ?>",
-							customerOrderDate: "<?php echo date('Y-m-d'); ?>",
-							customerReference: "<?php echo $order->get_user_id(); ?>",
-							reference: "<?php echo $order_id; ?>"
-						},
-						session: {
-							id: "<?php echo esc_js( $_REQUEST['sessionId'] ); ?>"
-						},
+					<?php if((int) $this->api_version >= 63) { ?>
+                        Checkout.configure({
+                        order: {
+                            id: "<?php echo $order_id; ?>",
+                            description: "<?php printf( __( 'Pay for order #%d via %s', 'woo-mpgs' ), $order_id, $this->title ); ?>",
+                            customerOrderDate: "<?php echo date('Y-m-d'); ?>",
+                            customerReference: "<?php echo $order->get_user_id(); ?>",
+                            reference: "<?php echo $order_id; ?>"
+                        },
+                        session: {
+                            id: "<?php echo esc_js( $_REQUEST['sessionId'] ); ?>"
+                        },
                         transaction: {
                             reference: "TRF" + "<?php echo $order_id; ?>"
                         },
-						billing: {
-							address: {
-								city: "<?php echo $order->get_billing_city(); ?>",
-								country: "<?php echo $this->kia_convert_country_code( $order->get_billing_country() ); ?>",
-								postcodeZip: "<?php echo $order->get_billing_postcode(); ?>",
-								stateProvince: "<?php echo $order->get_billing_state(); ?>",
-								street: "<?php echo $order->get_billing_address_1(); ?>",
-								street2: "<?php echo $order->get_billing_address_2(); ?>"
-							}
-						},
-						<?php if( ! empty( $order->get_billing_email() ) && ! empty( $order->get_billing_first_name() ) && ! empty( $order->get_billing_last_name() ) && ! empty( $order->get_billing_phone() ) ) { ?>
-						customer: {
-							email: "<?php echo $order->get_billing_email(); ?>",
-							firstName: "<?php echo $order->get_billing_first_name(); ?>",
-							lastName: "<?php echo $order->get_billing_last_name(); ?>",
-							phone: "<?php echo $order->get_billing_phone(); ?>"
-						},
-						<?php } ?>
-						interaction: {
-						    <?php if( (int) $this->api_version >= 52 ) { ?>
+                        billing: {
+                            address: {
+                                city: "<?php echo $order->get_billing_city(); ?>",
+                                country: "<?php echo $this->kia_convert_country_code( $order->get_billing_country() ); ?>",
+                                postcodeZip: "<?php echo $order->get_billing_postcode(); ?>",
+                                stateProvince: "<?php echo $order->get_billing_state(); ?>",
+                                street: "<?php echo $order->get_billing_address_1(); ?>",
+                                street2: "<?php echo $order->get_billing_address_2(); ?>"
+                            }
+                        },
+                        <?php if( ! empty( $order->get_billing_email() ) && ! empty( $order->get_billing_first_name() ) && ! empty( $order->get_billing_last_name() ) && ! empty( $order->get_billing_phone() ) ) { ?>
+                        customer: {
+                            email: "<?php echo $order->get_billing_email(); ?>",
+                            firstName: "<?php echo $order->get_billing_first_name(); ?>",
+                            lastName: "<?php echo $order->get_billing_last_name(); ?>",
+                            phone: "<?php echo $order->get_billing_phone(); ?>"
+                        },
+                        <?php } ?>
+                        interaction: {
+                            <?php if( (int) $this->api_version >= 52 ) { ?>
                             operation: "PURCHASE",
                             <?php } ?>
                             merchant: {
-								name: "<?php echo ( ! empty( $this->merchant_name ) ) ? $this->merchant_name : 'MPGS'; ?>",
-								address: {
-									line1: "<?php echo $this->merchant_address1; ?>",
-									line2: "<?php echo $this->merchant_address2; ?>"
-								}
-							},
-							displayControl: {
-								billingAddress  : "HIDE",
-								customerEmail   : "HIDE",
-								orderSummary    : "HIDE",
-								shipping        : "HIDE"
-							}
-						}
-					});
+                                name: "<?php echo ( ! empty( $this->merchant_name ) ) ? $this->merchant_name : 'MPGS'; ?>",
+                                address: {
+                                    line1: "<?php echo $this->merchant_address1; ?>",
+                                    line2: "<?php echo $this->merchant_address2; ?>"
+                                }
+                            },
+                            displayControl: {
+                                billingAddress  : "HIDE",
+                                customerEmail   : "HIDE",
+                                shipping        : "HIDE"
+                            }
+                        }
+                    });
+                    <?php } else { ?>
+                        Checkout.configure({
+                        merchant: "<?php echo $this->merchant_id; ?>",
+                        order: {
+                            id: "<?php echo $order_id; ?>",
+                            amount: "<?php echo $order->get_total(); ?>",
+                            currency: "<?php echo get_woocommerce_currency(); ?>",
+                            description: "<?php printf( __( 'Pay for order #%d via %s', 'woo-mpgs' ), $order_id, $this->title ); ?>",
+                            customerOrderDate: "<?php echo date('Y-m-d'); ?>",
+                            customerReference: "<?php echo $order->get_user_id(); ?>",
+                            reference: "<?php echo $order_id; ?>"
+                        },
+                        session: {
+                            id: "<?php echo esc_js( $_REQUEST['sessionId'] ); ?>"
+                        },
+                        transaction: {
+                            reference: "TRF" + "<?php echo $order_id; ?>"
+                        },
+                        billing: {
+                            address: {
+                                city: "<?php echo $order->get_billing_city(); ?>",
+                                country: "<?php echo $this->kia_convert_country_code( $order->get_billing_country() ); ?>",
+                                postcodeZip: "<?php echo $order->get_billing_postcode(); ?>",
+                                stateProvince: "<?php echo $order->get_billing_state(); ?>",
+                                street: "<?php echo $order->get_billing_address_1(); ?>",
+                                street2: "<?php echo $order->get_billing_address_2(); ?>"
+                            }
+                        },
+                        <?php if( ! empty( $order->get_billing_email() ) && ! empty( $order->get_billing_first_name() ) && ! empty( $order->get_billing_last_name() ) && ! empty( $order->get_billing_phone() ) ) { ?>
+                        customer: {
+                            email: "<?php echo $order->get_billing_email(); ?>",
+                            firstName: "<?php echo $order->get_billing_first_name(); ?>",
+                            lastName: "<?php echo $order->get_billing_last_name(); ?>",
+                            phone: "<?php echo $order->get_billing_phone(); ?>"
+                        },
+                        <?php } ?>
+                        interaction: {
+                            <?php if( (int) $this->api_version >= 52 ) { ?>
+                            operation: "PURCHASE",
+                            <?php } ?>
+                            merchant: {
+                                name: "<?php echo ( ! empty( $this->merchant_name ) ) ? $this->merchant_name : 'MPGS'; ?>",
+                                address: {
+                                    line1: "<?php echo $this->merchant_address1; ?>",
+                                    line2: "<?php echo $this->merchant_address2; ?>"
+                                }
+                            },
+                            displayControl: {
+                                billingAddress  : "HIDE",
+                                customerEmail   : "HIDE",
+                                orderSummary    : "HIDE",
+                                shipping        : "HIDE"
+                            }
+                        }
+                    });
+                    <?php } ?>
 				</script>
 				<p class="loading-payment-text"><?php echo __( 'Loading payment method, please wait. This may take up to 30 seconds.', 'woo-mpgs' ); ?></p>
 				<script type="text/javascript">
-					<?php echo ( $this->checkout_interaction === 'paymentpage' ) ? 'Checkout.showPaymentPage();' : 'Checkout.showLightbox();';?>
+                    <?php  if((int) $this->api_version >= 63) {
+                        echo 'Checkout.showPaymentPage();';
+                    } else {
+                        echo ( $this->checkout_interaction === 'paymentpage' ) ? 'Checkout.showPaymentPage();' : 'Checkout.showLightbox();';
+                    } ?>
 				</script>
 				<?php
 			} else {
@@ -411,14 +483,25 @@ function woo_mpgs_init() {
 		 */
 		public function add_checkout_script() {
 			if ( ! empty( $_REQUEST['sessionId'] ) ) {
-			    ?>
-                <script
-                        src="<?php echo $this->service_host; ?>checkout/version/<?php echo $this->api_version; ?>/checkout.js"
-                        data-error="errorCallback"
-                        data-cancel="<?php echo wc_get_checkout_url(); ?>"
-                >
-                </script>
-			    <?php
+
+                if((int) $this->api_version >= 63) {
+                    ?>
+                    <script
+                            src="https://ap-gateway.mastercard.com/static/checkout/checkout.min.js"
+                            data-error="errorCallback"
+                            data-cancel="<?php echo wc_get_checkout_url(); ?>"
+                    ></script>
+                    <?php
+                } else {
+                    ?>
+                    <script
+                            src="<?php echo $this->service_host; ?>checkout/version/<?php echo $this->api_version; ?>/checkout.js"
+                            data-error="errorCallback"
+                            data-cancel="<?php echo wc_get_checkout_url(); ?>"
+                    >
+                    </script>
+                    <?php
+                }
 			}
 		}
 
