@@ -304,12 +304,12 @@ function woo_mpgs_init() {
                         window.location.href = "<?php echo wc_get_checkout_url(); ?>";
                     }
                     Checkout.configure({
-                        <?php if((int) $this->api_version < 63) { ?>
+                        <?php if((int) $this->api_version <= 62) { ?>
                         merchant: "<?php echo $this->merchant_id; ?>",
                         <?php } ?>
                         order: {
                             id: "<?php echo $order_id; ?>",
-                            <?php if((int) $this->api_version < 63) { ?>
+                            <?php if((int) $this->api_version <= 62) { ?>
                             amount: "<?php echo $order->get_total(); ?>",
                             currency: "<?php echo get_woocommerce_currency(); ?>",
                             <?php } ?>
@@ -356,7 +356,7 @@ function woo_mpgs_init() {
                             displayControl: {
                                 billingAddress  : "HIDE",
                                 customerEmail   : "HIDE",
-                                <?php if((int) $this->api_version < 63) { ?>
+                                <?php if((int) $this->api_version <= 62) { ?>
                                 orderSummary    : "HIDE",
                                 <?php } ?>
                                 shipping        : "HIDE"
