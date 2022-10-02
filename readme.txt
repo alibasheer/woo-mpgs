@@ -4,7 +4,7 @@ Donate link: http://alibasheer.com
 Tags: woocommerce, mastercard, mpgs, payment, gateway
 Requires at least: 4.0
 Tested up to: 6.0.2
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,6 +49,9 @@ Make sure that your Merchant Account currency is the same as your website curren
 
 == Changelog ==
 
+= 1.5.1 =
+* Fix MSO error
+
 = 1.5.0 =
 * Support latest API version 66
 * Provide support for both 3DS1 and 3-D Secure authentication version 2 (3DS2)
@@ -82,6 +85,9 @@ Make sure that your Merchant Account currency is the same as your website curren
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+Fix MSO error
 
 = 1.5.0 =
 Support to latest API version 66 and some other enhancements, check change log for more details. If you faced any issue, contact me at alibasheer@hotmail.com

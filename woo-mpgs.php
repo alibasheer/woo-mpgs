@@ -435,7 +435,7 @@ function woo_mpgs_init() {
             if ( ! empty( $_REQUEST['sessionId'] ) ) {
 
                 if((int) $this->api_version >= 63) {
-                    $src = "https://ap-gateway.mastercard.com/static/checkout/checkout.min.js";
+                    $src = $this->service_host."static/checkout/checkout.min.js";
                 } else {
                     $src = $this->service_host."checkout/version/".$this->api_version."/checkout.js";
                 }
